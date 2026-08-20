@@ -207,7 +207,134 @@ function App() {
             staged-cutout technique studied from the Mostar splitframe handoff.
           </p>
         </div>
+        {/* Content card 1 — paired with the columns stage. Centered, low on
+            the frame (arch overhead has room, columns sit at the edges). */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 bottom-24 flex justify-center px-8"
+          style={{
+            opacity: "var(--content-columns-active)",
+            transform:
+              "translate3d(0, calc((1 - var(--content-columns-active)) * 20px), 0)",
+          }}
+        >
+          <div className={cardClass}>
+            <span className={eyebrowClass}>01 — El umbral</span>
+            <h3 className="mt-2 text-lg font-normal tracking-tight">
+              Un arco tallado por el viento
+            </h3>
+            <p className="mt-2 text-sm text-white/75">
+              Miles de años de arena y viento dejaron esta puerta de piedra. Las columnas a
+              los costados son lo único que queda de una formación mucho más grande.
+            </p>
+            <button type="button" className={ctaClass}>
+              Explorar la ruta
+            </button>
+          </div>
+        </div>
+
+        {/* Content card 2 — paired with the canyon reveal. Bottom-left,
+            clear of the canyon's own silhouette which fills the lower half. */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-y-0 left-8 flex items-center sm:left-16"
+          style={{
+            opacity: "var(--content-canyon-active)",
+            transform:
+              "translate3d(calc((1 - var(--content-canyon-active)) * -24px), 0, 0)",
+          }}
+        >
+          <div className={cardClass}>
+            <span className={eyebrowClass}>02 — El cañón</span>
+            <h3 className="mt-2 text-lg font-normal tracking-tight">
+              Donde el desierto se abre
+            </h3>
+            <p className="mt-2 text-sm text-white/75">
+              Dunas y roca roja se extienden hasta el horizonte. Es el punto más bajo de la
+              ruta, y el más fotografiado al atardecer.
+            </p>
+            <button type="button" className={ctaClass}>
+              Ver el mapa
+            </button>
+          </div>
+        </div>
+
+        {/* Content card 3 — paired with the distant mesas. Bottom-right,
+            mirrors card 2 so the eye alternates sides down the page. */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-y-0 right-8 flex items-center sm:right-16"
+          style={{
+            opacity: "var(--content-mesas-active)",
+            transform:
+              "translate3d(calc((1 - var(--content-mesas-active)) * 24px), 0, 0)",
+          }}
+        >
+          <div className={cardClass}>
+            <span className={eyebrowClass}>03 — Las mesetas</span>
+            <h3 className="mt-2 text-lg font-normal tracking-tight">Guardianas del horizonte</h3>
+            <p className="mt-2 text-sm text-white/75">
+              Estas formaciones marcan el límite del valle. Se ven mejor desde lejos, cuando
+              el sol bajo dibuja su silueta completa.
+            </p>
+            <button type="button" className={ctaClass}>
+              Reservar visita
+            </button>
+          </div>
+        </div>
+
+        {/* Content card 4 — paired with the black volcanic rocks (closest
+            layer, corners only). Centered, since the rocks leave the middle
+            of the frame clear. */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 bottom-28 flex justify-center px-8"
+          style={{
+            opacity: "var(--content-rocks-active)",
+            transform:
+              "translate3d(0, calc((1 - var(--content-rocks-active)) * 20px), 0)",
+          }}
+        >
+          <div className={cardClass}>
+            <span className={eyebrowClass}>04 — Roca volcánica</span>
+            <h3 className="mt-2 text-lg font-normal tracking-tight">Lo último antes del cielo</h3>
+            <p className="mt-2 text-sm text-white/75">
+              Rocas oscuras, mucho más jóvenes que el resto del paisaje, marcan el borde del
+              mirador final.
+            </p>
+            <button type="button" className={ctaClass}>
+              Planear el viaje
+            </button>
+          </div>
+        </div>
+
+        {/* Post-reveal caption — only once the final sky stage settles in */}
+        <div
+          className="absolute inset-x-0 bottom-16 flex flex-col items-center gap-2 text-center text-white"
+          style={{
+            opacity: "var(--sky-enter)",
+            transform: "translate3d(0, calc((1 - var(--sky-enter)) * 24px), 0)",
+          }}
+        >
+          <span className="font-mono text-xs uppercase tracking-[0.15em] text-white/70">
+            Revealed
+          </span>
+          <h2 className="text-2xl font-normal tracking-tight">The open desert sky</h2>
+          <button
+            type="button"
+            className="mt-2 inline-flex items-center gap-2 rounded-full bg-white/90 px-5 py-2 text-sm font-medium text-[#3a1a0a] transition hover:bg-white"
+          >
+            Ver todas las rutas
+          </button>
+        </div>
       </CinematicStage>
+
+      <section className="flex min-h-screen flex-col items-center justify-center gap-3 bg-[#1a0f08] px-8 text-center text-white">
+        <h2 className="text-3xl font-normal tracking-tight">Regular content section</h2>
+        <p className="max-w-md text-sm text-white/70">
+          Confirms the stage releases cleanly and normal scroll resumes after the reveal.
+        </p>
+      </section>
     </div>
   );
 }
