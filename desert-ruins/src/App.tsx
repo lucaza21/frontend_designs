@@ -207,6 +207,7 @@ function App() {
             staged-cutout technique studied from the Mostar splitframe handoff.
           </p>
         </div>
+
         {/* Content card 1 — paired with the columns stage. Centered, low on
             the frame (arch overhead has room, columns sit at the edges). */}
         <div
@@ -329,12 +330,160 @@ function App() {
         </div>
       </CinematicStage>
 
-      <section className="flex min-h-screen flex-col items-center justify-center gap-3 bg-[#1a0f08] px-8 text-center text-white">
-        <h2 className="text-3xl font-normal tracking-tight">Regular content section</h2>
-        <p className="max-w-md text-sm text-white/70">
-          Confirms the stage releases cleanly and normal scroll resumes after the reveal.
-        </p>
+      {/* -------------------------------------------------------------- */}
+      {/* Main content — routes / expeditions grid                       */}
+      {/* -------------------------------------------------------------- */}
+      <section className="bg-[#1a0f08] px-6 py-24 text-white sm:px-10 md:px-16">
+        <div className="mx-auto max-w-6xl">
+          <div className="flex flex-col gap-4 border-b border-white/10 pb-10 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <span className="font-mono text-xs uppercase tracking-[0.18em] text-white/50">
+                Rutas guiadas
+              </span>
+              <h2 className="mt-3 max-w-lg text-3xl font-normal tracking-tight sm:text-4xl">
+                Cuatro formas de recorrer las ruinas del desierto
+              </h2>
+            </div>
+            <p className="max-w-xs text-sm text-white/60">
+              Cada ruta sigue una de las formaciones reveladas arriba — el arco, las columnas,
+              el cañón y las mesetas — con un guía local y salidas al amanecer o al atardecer.
+            </p>
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                num: "01",
+                title: "El umbral del arco",
+                desc: "Caminata corta al amanecer, ideal para fotografía. Incluye acceso al mirador superior.",
+                meta: "2h · Fácil",
+              },
+              {
+                num: "02",
+                title: "Las columnas erosionadas",
+                desc: "Recorrido geológico por lo que queda de la formación original, con parada para agua.",
+                meta: "3h · Moderada",
+              },
+              {
+                num: "03",
+                title: "El cañón abierto",
+                desc: "La ruta más fotografiada. Descenso hasta las dunas rojas, regreso al atardecer.",
+                meta: "4h · Moderada",
+              },
+              {
+                num: "04",
+                title: "Roca volcánica y mesetas",
+                desc: "Expedición completa de día, cierra en el mirador de roca negra frente al valle.",
+                meta: "Día completo",
+              },
+            ].map((route) => (
+              <div
+                key={route.num}
+                className="group flex flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:border-white/25 hover:bg-white/[0.06]"
+              >
+                <div>
+                  <span className="font-mono text-xs text-white/40">{route.num}</span>
+                  <h3 className="mt-3 text-lg font-normal tracking-tight">{route.title}</h3>
+                  <p className="mt-2 text-sm text-white/60">{route.desc}</p>
+                </div>
+                <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-4 text-xs text-white/50">
+                  <span>{route.meta}</span>
+                  <span className="translate-x-0 text-white/70 transition group-hover:translate-x-1">
+                    →
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
+
+      {/* -------------------------------------------------------------- */}
+      {/* About / trust strip                                            */}
+      {/* -------------------------------------------------------------- */}
+      <section className="border-t border-white/10 bg-[#150c06] px-6 py-20 text-white sm:px-10 md:px-16">
+        <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[1.1fr_1fr]">
+          <div>
+            <span className="font-mono text-xs uppercase tracking-[0.18em] text-white/50">
+              Sobre la reserva
+            </span>
+            <h2 className="mt-3 max-w-md text-2xl font-normal tracking-tight sm:text-3xl">
+              Un territorio protegido desde 1994
+            </h2>
+            <p className="mt-4 max-w-md text-sm leading-relaxed text-white/65">
+              Las ruinas y formaciones de arenisca que ves arriba forman parte de una reserva de
+              acceso limitado. Los guías locales trabajan con las comunidades cercanas para
+              mantener las rutas abiertas sin dañar la erosión natural que tardó milenios en
+              formarse.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 md:grid-cols-2">
+            {[
+              { n: "30+", l: "años operando rutas guiadas" },
+              { n: "6", l: "formaciones protegidas" },
+              { n: "12", l: "guías certificados" },
+              { n: "4.9", l: "calificación promedio" },
+            ].map((stat) => (
+              <div key={stat.l} className="border-l border-white/15 pl-4">
+                <div className="text-2xl font-normal tracking-tight">{stat.n}</div>
+                <div className="mt-1 text-xs text-white/55">{stat.l}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* -------------------------------------------------------------- */}
+      {/* Footer                                                         */}
+      {/* -------------------------------------------------------------- */}
+      <footer className="border-t border-white/10 bg-[#100a05] px-6 py-14 text-white sm:px-10 md:px-16">
+        <div className="mx-auto flex max-w-6xl flex-col gap-10 md:flex-row md:items-start md:justify-between">
+          <div className="max-w-xs">
+            <h3 className="text-lg font-normal tracking-tight">Desert Ruins</h3>
+            <p className="mt-3 text-sm text-white/55">
+              Rutas guiadas por las formaciones de arenisca del valle. Salidas diarias al
+              amanecer y al atardecer.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
+            <div>
+              <span className="font-mono text-xs uppercase tracking-[0.15em] text-white/40">
+                Explorar
+              </span>
+              <ul className="mt-3 space-y-2 text-sm text-white/65">
+                <li className="cursor-pointer transition hover:text-white">Rutas</li>
+                <li className="cursor-pointer transition hover:text-white">El cañón</li>
+                <li className="cursor-pointer transition hover:text-white">Mesetas</li>
+              </ul>
+            </div>
+            <div>
+              <span className="font-mono text-xs uppercase tracking-[0.15em] text-white/40">
+                Reservar
+              </span>
+              <ul className="mt-3 space-y-2 text-sm text-white/65">
+                <li className="cursor-pointer transition hover:text-white">Grupos privados</li>
+                <li className="cursor-pointer transition hover:text-white">Fotografía</li>
+                <li className="cursor-pointer transition hover:text-white">Preguntas frecuentes</li>
+              </ul>
+            </div>
+            <div>
+              <span className="font-mono text-xs uppercase tracking-[0.15em] text-white/40">
+                Contacto
+              </span>
+              <ul className="mt-3 space-y-2 text-sm text-white/65">
+                <li className="cursor-pointer transition hover:text-white">hola@desertruins.com</li>
+                <li className="cursor-pointer transition hover:text-white">+1 (555) 019-2244</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div className="mx-auto mt-12 flex max-w-6xl flex-col gap-3 border-t border-white/10 pt-6 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
+          <span>© 2026 Desert Ruins. Todos los derechos reservados.</span>
+          <span>Reserva natural protegida</span>
+        </div>
+      </footer>
     </div>
   );
 }
