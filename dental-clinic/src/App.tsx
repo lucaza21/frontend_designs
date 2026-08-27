@@ -717,6 +717,82 @@ function App() {
           </div>
         </div>
       </section>
+
+      {/* FOOTER */}
+      <footer className="w-full bg-black text-white px-3 md:px-5 py-10 md:py-16">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 pb-10 border-b border-white/15">
+            <div>
+              <span className="block text-xs md:text-sm font-semibold text-white/50 mb-3">
+                Ready when you are
+              </span>
+              <h2 className="text-[clamp(2.4rem,6vw,5rem)] font-bold leading-[0.95]">
+                Let&apos;s fix
+                <br />
+                that smile.
+              </h2>
+            </div>
+            <button
+              type="button"
+              className="self-start md:self-auto px-6 py-4 md:px-8 md:py-5 bg-white rounded-full text-black text-sm md:text-base font-semibold hover:bg-neutral-200 transition-colors shrink-0"
+            >
+              Book Appointment
+            </button>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-10">
+            <div>
+              <span className="block text-xs font-semibold uppercase tracking-wide text-white/40 mb-3">
+                Dental Health
+              </span>
+              <p className="text-sm text-white/60 max-w-[220px]">
+                Trusted dentist in West New York — modern equipment, friendly staff.
+              </p>
+            </div>
+
+            <div>
+              <span className="block text-xs font-semibold uppercase tracking-wide text-white/40 mb-3">
+                Navigate
+              </span>
+              <ul className="space-y-2 text-sm text-white/70">
+                {NAV_LINKS.map((link) => (
+                  <li key={link} className="hover:text-white transition-colors cursor-pointer">
+                    {link}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <span className="block text-xs font-semibold uppercase tracking-wide text-white/40 mb-3">
+                Services
+              </span>
+              <ul className="space-y-2 text-sm text-white/70">
+                <li className="hover:text-white transition-colors cursor-pointer">Dental Veneers</li>
+                <li className="hover:text-white transition-colors cursor-pointer">Dental Crowns</li>
+                <li className="hover:text-white transition-colors cursor-pointer">Teeth Whitening</li>
+                <li className="hover:text-white transition-colors cursor-pointer">Dental Implants</li>
+              </ul>
+            </div>
+
+            <div>
+              <span className="block text-xs font-semibold uppercase tracking-wide text-white/40 mb-3">
+                Contact
+              </span>
+              <ul className="space-y-2 text-sm text-white/70">
+                <li>hello@dentalhealth.com</li>
+                <li>+1 (555) 042-8871</li>
+                <li>West New York, NJ</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="pt-6 flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between text-xs text-white/40">
+            <span>© 2026 Dental Health. All rights reserved.</span>
+            <span>Advanced Dentistry · High Quality Equipment · Friendly Staff</span>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
