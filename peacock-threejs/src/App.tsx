@@ -213,6 +213,33 @@ function App() {
           <p className="text-[15px] leading-relaxed text-[#2c2a22]/70 md:text-base">{copy.storyBody}</p>
         </div>
       </section>
+
+      {/* -------------------------------------------------------------- */}
+      {/* PROCESS                                                        */}
+      {/* -------------------------------------------------------------- */}
+      <section id="process" className="border-t border-[#2c2a22]/10 bg-[#e4ddce] px-6 py-24 md:px-10 md:py-32">
+        <div className="mx-auto max-w-5xl">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#4a5a45]">
+            {copy.processEyebrow}
+          </span>
+          <h2
+            className="mt-4 max-w-md text-3xl leading-[1.1] text-[#2c2a22] md:text-4xl"
+            style={{ fontFamily: "'Cormorant Garamond', 'Noto Serif SC', serif" }}
+          >
+            {copy.processTitle}
+          </h2>
+
+          <div className="mt-14 grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
+            {copy.steps.map((step, i) => (
+              <div key={step.title} className="border-t border-[#2c2a22]/15 pt-5">
+                <span className="text-[11px] text-[#2c2a22]/40">{`0${i + 1}`}</span>
+                <h3 className="mt-2 text-lg font-medium text-[#2c2a22]">{step.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-[#2c2a22]/65">{step.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
