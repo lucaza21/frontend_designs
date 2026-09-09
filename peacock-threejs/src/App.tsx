@@ -240,6 +240,41 @@ function App() {
           </div>
         </div>
       </section>
+
+      {/* -------------------------------------------------------------- */}
+      {/* CONTACT                                                        */}
+      {/* -------------------------------------------------------------- */}
+      <section id="contact" className="border-t border-[#2c2a22]/10 px-6 py-24 text-center md:px-10 md:py-32">
+        <div className="mx-auto max-w-xl">
+          <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#4a5a45]">
+            {copy.contactEyebrow}
+          </span>
+          <h2
+            className="mt-4 text-3xl leading-[1.1] text-[#2c2a22] md:text-4xl"
+            style={{ fontFamily: "'Cormorant Garamond', 'Noto Serif SC', serif" }}
+          >
+            {copy.contactTitle}
+          </h2>
+          <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-[#2c2a22]/65">{copy.contactBody}</p>
+          <button
+            type="button"
+            className="mt-8 inline-flex items-center gap-2 rounded-full border border-[#2c2a22]/30 px-6 py-3 text-[13px] font-medium tracking-wide text-[#2c2a22] transition-colors hover:border-[#2c2a22]/60"
+          >
+            {copy.contactCta}
+          </button>
+        </div>
+      </section>
+
+      {/* -------------------------------------------------------------- */}
+      {/* FOOTER                                                         */}
+      {/* -------------------------------------------------------------- */}
+      <footer className="border-t border-[#2c2a22]/15 px-6 py-10 md:px-10">
+        <div className="mx-auto flex max-w-5xl flex-col items-center gap-2 text-center text-[11px] text-[#2c2a22]/45 sm:flex-row sm:justify-between sm:text-left">
+          <span className="font-zh tracking-[0.1em]">羽间 · Yǔ Jiān</span>
+          <span>{copy.footerNote}</span>
+          <span>© 2026</span>
+        </div>
+      </footer>
     </div>
   );
 }
