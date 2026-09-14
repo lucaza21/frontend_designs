@@ -31,6 +31,8 @@ type Copy = {
   storyEyebrow: string;
   storyTitle: string;
   storyBody: string;
+  storyStatValue: string;
+  storyStatLabel: string;
   processEyebrow: string;
   processTitle: string;
   steps: { title: string; body: string }[];
@@ -39,7 +41,48 @@ type Copy = {
   contactBody: string;
   contactCta: string;
   footerNote: string;
+  footerNavLabel: string;
+  footerConnectLabel: string;
 };
+
+/** Concentric-ring motif echoing a peacock tail ocellus — built from primitives, matching the procedural-rig theme of the piece itself. */
+function EyeMotif({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 120 120" className={className} fill="none" aria-hidden="true">
+      <circle cx="60" cy="60" r="58" stroke="currentColor" strokeOpacity="0.15" />
+      <circle cx="60" cy="60" r="42" stroke="currentColor" strokeOpacity="0.25" />
+      <circle cx="60" cy="60" r="26" stroke="currentColor" strokeOpacity="0.4" />
+      <circle cx="60" cy="60" r="10" fill="currentColor" fillOpacity="0.5" />
+    </svg>
+  );
+}
+
+function StepIcon({ index }: { index: number }) {
+  const marks = [
+    // 01 — procedural rig: a small hierarchy of joined nodes
+    <svg key="rig" viewBox="0 0 32 32" fill="none" aria-hidden="true" className="h-6 w-6">
+      <circle cx="16" cy="7" r="3" stroke="currentColor" strokeOpacity="0.7" />
+      <path d="M16 10v6M16 16l-8 8M16 16l8 8" stroke="currentColor" strokeOpacity="0.4" />
+      <circle cx="8" cy="26" r="2.5" stroke="currentColor" strokeOpacity="0.7" />
+      <circle cx="24" cy="26" r="2.5" stroke="currentColor" strokeOpacity="0.7" />
+    </svg>,
+    // 02 — painted textures: a brushed grain swatch
+    <svg key="paint" viewBox="0 0 32 32" fill="none" aria-hidden="true" className="h-6 w-6">
+      <rect x="5" y="5" width="22" height="22" rx="4" stroke="currentColor" strokeOpacity="0.5" />
+      <circle cx="12" cy="13" r="1.2" fill="currentColor" fillOpacity="0.6" />
+      <circle cx="19" cy="10" r="1" fill="currentColor" fillOpacity="0.5" />
+      <circle cx="22" cy="18" r="1.3" fill="currentColor" fillOpacity="0.6" />
+      <circle cx="14" cy="21" r="1" fill="currentColor" fillOpacity="0.5" />
+      <circle cx="17" cy="16" r="0.9" fill="currentColor" fillOpacity="0.5" />
+    </svg>,
+    // 03 — steering: a directional arrow with a wandering arc
+    <svg key="steer" viewBox="0 0 32 32" fill="none" aria-hidden="true" className="h-6 w-6">
+      <path d="M6 22c4-8 12-12 20-10" stroke="currentColor" strokeOpacity="0.4" />
+      <path d="M22 9l4 3-4 3" stroke="currentColor" strokeOpacity="0.7" />
+    </svg>,
+  ];
+  return <div className="text-[#2c2a22]">{marks[index]}</div>;
+}
 
 const COPY: Record<Lang, Copy> = {
   en: {
@@ -53,6 +96,8 @@ const COPY: Record<Lang, Copy> = {
     storyTitle: "A bird made of light and patience",
     storyBody:
       "羽间 — \"among feathers\" — began as a study of how stillness and motion coexist in a single creature. The peacock in front of you isn't a recording or a pre-baked animation: every turn of the head, every spread of the tail is calculated in real time, driven by wherever your cursor happens to be. It is a small, quiet collaboration between you and something that only exists because you're here to watch it.",
+    storyStatValue: "16",
+    storyStatLabel: "individually rigged tail feathers, no imported model",
     processEyebrow: "The process",
     processTitle: "Built from geometry, light, and grain",
     steps: [
@@ -75,6 +120,8 @@ const COPY: Record<Lang, Copy> = {
       "This piece is a demonstration of procedural motion design and real-time 3D built for the web — no external model, no baked animation. If you're building something that needs this kind of craft, let's talk.",
     contactCta: "Start a conversation",
     footerNote: "Designed and built as a study in procedural motion.",
+    footerNavLabel: "Explore",
+    footerConnectLabel: "Connect",
   },
   zh: {
     line1: "有些美丽",
@@ -87,6 +134,8 @@ const COPY: Record<Lang, Copy> = {
     storyTitle: "一只由光与耐心构成的鸟",
     storyBody:
       "「羽间」——探讨静与动如何在同一个生命中共存。眼前的孔雀并非录像，也没有预先烘焙的动画：每一次转头、每一次开屏，都是实时计算的结果，由你的光标所在之处驱动。这是你与一个只因你在场才存在的事物之间，一场安静的合作。",
+    storyStatValue: "16",
+    storyStatLabel: "片独立驱动的尾羽，没有导入任何模型",
     processEyebrow: "工艺",
     processTitle: "由几何、光线与颗粒构成",
     steps: [
@@ -109,6 +158,8 @@ const COPY: Record<Lang, Copy> = {
       "这件作品展示了面向网页的程序化动效设计与实时三维技术——没有外部模型，没有预烘焙动画。如果你正在构建需要这种工艺的项目，欢迎联系。",
     contactCta: "开始对话",
     footerNote: "作为程序化动效的研究而设计与制作。",
+    footerNavLabel: "浏览",
+    footerConnectLabel: "联系",
   },
 };
 
@@ -208,19 +259,33 @@ function PeacockApp() {
       {/* STORY                                                          */}
       {/* -------------------------------------------------------------- */}
       <section id="story" className="border-t border-[#2c2a22]/10 px-6 py-24 md:px-10 md:py-32">
-        <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-[0.7fr_1fr] md:gap-16">
-          <div>
-            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#4a5a45]">
-              {copy.storyEyebrow}
-            </span>
-            <h2
-              className="mt-4 text-3xl leading-[1.1] text-[#2c2a22] md:text-4xl"
-              style={{ fontFamily: "'Cormorant Garamond', 'Noto Serif SC', serif" }}
-            >
-              {copy.storyTitle}
-            </h2>
+        <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-[0.7fr_1fr] md:gap-6">
+          <div className="relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[#2c2a22]/10 bg-[#e4ddce]/60 p-8 md:p-10">
+            <EyeMotif className="pointer-events-none absolute -bottom-6 -right-6 h-40 w-40 text-[#4a5a45] md:h-48 md:w-48" />
+            <div className="relative">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#4a5a45]">
+                {copy.storyEyebrow}
+              </span>
+              <h2
+                className="mt-4 text-3xl leading-[1.1] text-[#2c2a22] md:text-4xl"
+                style={{ fontFamily: "'Cormorant Garamond', 'Noto Serif SC', serif" }}
+              >
+                {copy.storyTitle}
+              </h2>
+            </div>
+            <div className="relative mt-10">
+              <span
+                className="text-4xl text-[#2c2a22] md:text-5xl"
+                style={{ fontFamily: "'Cormorant Garamond', 'Noto Serif SC', serif" }}
+              >
+                {copy.storyStatValue}
+              </span>
+              <p className="mt-1 max-w-55 text-[13px] leading-snug text-[#2c2a22]/60">{copy.storyStatLabel}</p>
+            </div>
           </div>
-          <p className="text-[15px] leading-relaxed text-[#2c2a22]/70 md:text-base">{copy.storyBody}</p>
+          <div className="rounded-2xl border border-[#2c2a22]/10 p-8 md:p-10">
+            <p className="text-[15px] leading-relaxed text-[#2c2a22]/70 md:text-base">{copy.storyBody}</p>
+          </div>
         </div>
       </section>
 
@@ -239,12 +304,20 @@ function PeacockApp() {
             {copy.processTitle}
           </h2>
 
-          <div className="mt-14 grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
+          <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-6">
             {copy.steps.map((step, i) => (
-              <div key={step.title} className="border-t border-[#2c2a22]/15 pt-5">
-                <span className="text-[11px] text-[#2c2a22]/40">{`0${i + 1}`}</span>
-                <h3 className="mt-2 text-lg font-medium text-[#2c2a22]">{step.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#2c2a22]/65">{step.body}</p>
+              <div
+                key={step.title}
+                className="flex flex-col gap-4 rounded-2xl border border-[#2c2a22]/12 bg-[#ece6da] p-7 shadow-[0_1px_0_rgba(44,42,34,0.04)] transition-shadow hover:shadow-[0_8px_24px_rgba(44,42,34,0.08)]"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] text-[#2c2a22]/40">{`0${i + 1}`}</span>
+                  <StepIcon index={i} />
+                </div>
+                <div>
+                  <h3 className="text-lg font-medium text-[#2c2a22]">{step.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-[#2c2a22]/65">{step.body}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -278,13 +351,49 @@ function PeacockApp() {
       {/* -------------------------------------------------------------- */}
       {/* FOOTER                                                         */}
       {/* -------------------------------------------------------------- */}
-      <footer className="border-t border-[#2c2a22]/15 px-6 py-10 md:px-10">
-        <div className="mx-auto flex max-w-5xl flex-col items-center gap-2 text-center text-[11px] text-[#2c2a22]/45 sm:flex-row sm:justify-between sm:text-left">
-          <span className="tracking-[0.1em]" style={{ fontFamily: "'Noto Serif SC', serif" }}>
-            羽间 · Yǔ Jiān
-          </span>
-          <span>{copy.footerNote}</span>
-          <span>© 2026</span>
+      <footer className="border-t border-[#2c2a22]/15 bg-[#e4ddce]/50 px-6 py-14 md:px-10 md:py-16">
+        <div className="mx-auto grid max-w-5xl gap-10 sm:grid-cols-3">
+          <div>
+            <span
+              className="text-lg tracking-[0.1em] text-[#2c2a22]"
+              style={{ fontFamily: "'Noto Serif SC', serif" }}
+            >
+              羽间 · Yǔ Jiān
+            </span>
+            <p className="mt-3 max-w-55 text-[13px] leading-relaxed text-[#2c2a22]/55">{copy.footerNote}</p>
+          </div>
+          <div>
+            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#2c2a22]/45">
+              {copy.footerNavLabel}
+            </span>
+            <ul className="mt-3 space-y-2 text-[13px] text-[#2c2a22]/65">
+              {copy.nav.map((item, i) => (
+                <li key={item}>
+                  <a
+                    href={`#${["index", "story", "process", "contact"][i]}`}
+                    className="transition-colors hover:text-[#2c2a22]"
+                  >
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#2c2a22]/45">
+              {copy.footerConnectLabel}
+            </span>
+            <ul className="mt-3 space-y-2 text-[13px] text-[#2c2a22]/65">
+              <li>
+                <a href="#contact" className="transition-colors hover:text-[#2c2a22]">
+                  {copy.contactCta}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="mx-auto mt-10 max-w-5xl border-t border-[#2c2a22]/10 pt-6 text-[11px] text-[#2c2a22]/45">
+          © 2026
         </div>
       </footer>
     </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { CinematicStage } from "./CinematicStage";
 
 /**
@@ -357,38 +358,55 @@ function DesertRuinsApp() {
                 title: "El umbral del arco",
                 desc: "Caminata corta al amanecer, ideal para fotografía. Incluye acceso al mirador superior.",
                 meta: "2h · Fácil",
+                image: "/desert-ruins/route-cards/arch-columns.png",
+                imagePosition: "25% 5%",
               },
               {
                 num: "02",
                 title: "Las columnas erosionadas",
                 desc: "Recorrido geológico por lo que queda de la formación original, con parada para agua.",
                 meta: "3h · Moderada",
+                image: "/desert-ruins/route-cards/arch-columns.png",
+                imagePosition: "85% 5%",
               },
               {
                 num: "03",
                 title: "El cañón abierto",
                 desc: "La ruta más fotografiada. Descenso hasta las dunas rojas, regreso al atardecer.",
                 meta: "4h · Moderada",
+                image: "/desert-ruins/route-cards/canyon.png",
+                imagePosition: "90% 55%",
               },
               {
                 num: "04",
                 title: "Roca volcánica y mesetas",
                 desc: "Expedición completa de día, cierra en el mirador de roca negra frente al valle.",
                 meta: "Día completo",
+                image: "/desert-ruins/route-cards/mesas-rocks.png",
+                imagePosition: "50% 5%",
               },
             ].map((route) => (
               <div
                 key={route.num}
-                className="group flex flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:border-white/25 hover:bg-white/[0.06]"
+                className="group relative flex min-h-70 flex-col justify-between overflow-hidden rounded-2xl border border-white/10 p-6 transition hover:border-white/25"
               >
-                <div>
-                  <span className="font-mono text-xs text-white/40">{route.num}</span>
+                <Image
+                  src={route.image}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                  style={{ objectPosition: route.imagePosition }}
+                  className="pointer-events-none object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10 transition-opacity duration-500 group-hover:from-black/90" />
+                <div className="relative">
+                  <span className="font-mono text-xs text-white/50">{route.num}</span>
                   <h3 className="mt-3 text-lg font-normal tracking-tight">{route.title}</h3>
-                  <p className="mt-2 text-sm text-white/60">{route.desc}</p>
+                  <p className="mt-2 text-sm text-white/70">{route.desc}</p>
                 </div>
-                <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-4 text-xs text-white/50">
+                <div className="relative mt-6 flex items-center justify-between border-t border-white/15 pt-4 text-xs text-white/60">
                   <span>{route.meta}</span>
-                  <span className="translate-x-0 text-white/70 transition group-hover:translate-x-1">
+                  <span className="translate-x-0 text-white/80 transition group-hover:translate-x-1">
                     →
                   </span>
                 </div>
@@ -417,16 +435,19 @@ function DesertRuinsApp() {
               formarse.
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 md:grid-cols-2">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-2">
             {[
               { n: "30+", l: "años operando rutas guiadas" },
               { n: "6", l: "formaciones protegidas" },
               { n: "12", l: "guías certificados" },
               { n: "4.9", l: "calificación promedio" },
             ].map((stat) => (
-              <div key={stat.l} className="border-l border-white/15 pl-4">
-                <div className="text-2xl font-normal tracking-tight">{stat.n}</div>
-                <div className="mt-1 text-xs text-white/55">{stat.l}</div>
+              <div
+                key={stat.l}
+                className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition hover:border-white/20 hover:bg-white/[0.05]"
+              >
+                <div className="text-3xl font-normal tracking-tight text-[#e8a35c]">{stat.n}</div>
+                <div className="mt-2 text-xs leading-snug text-white/55">{stat.l}</div>
               </div>
             ))}
           </div>
