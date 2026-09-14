@@ -45,14 +45,17 @@ sideways.
 - All three are single-page apps: hero/interactive centerpiece first,
   followed by supporting content sections and a footer.
 
-## portfolio-next/ — Next.js App Router wrapper (2026-09-09/10)
+## Next.js App Router wrapper (2026-09-09/10, moved to repo root 2026-09-13)
 
 Goal: ship all three demos from one deployable app (Vercel), each on its
-own route, to attach to the user's personal developer portfolio repo
-later. Built with `create-next-app` (Next 16, App Router, Tailwind v4,
-TypeScript). **Status: scaffolded and each project migrated in; build +
-type-check clean; visually verified with Playwright screenshots against
-the three original Vite apps (pixel-equivalent, no console errors).**
+own route. Built with `create-next-app` (Next 16, App Router, Tailwind v4,
+TypeScript). **Status: shipped.** The three original standalone Vite
+projects (`dental-clinic/`, `desert-ruins/`, `peacock-threejs/`) have been
+deleted from the repo — this Next.js app (originally scaffolded under
+`portfolio-next/`, now living at the repo root so Vercel can deploy it
+with zero config) is the only surviving copy of all three. Home page
+(`app/page.tsx`) cards use real header screenshots (headless Chrome,
+`public/home-cards/*.png`) as backgrounds with a hover zoom effect.
 
 Routes:
 - `/` — landing page (`app/page.tsx`, authored fresh) linking to the
@@ -88,9 +91,9 @@ theme customization exists in any of the three original projects, so no
 theme merge was needed — Tailwind v4 auto-scans the whole app.
 
 **Not done yet / next steps:**
-- Not deployed to Vercel, not pushed to the user's personal portfolio
-  repo, no git init inside `portfolio-next/` yet — waiting on the user
-  to say which repo/account this goes to.
+- Pushed to `github.com/lucaza21/frontend_designs` (`main` branch), repo
+  root is now the Next.js app itself — ready to import into Vercel as-is,
+  no root-directory override needed.
 - Two cosmetic, non-blocking items surfaced during evaluation, never
   fixed (design calls, not bugs): desert-ruins mixes a few English
   strings ("The open desert sky", "REVEALED") into otherwise-Spanish
@@ -98,10 +101,7 @@ theme merge was needed — Tailwind v4 auto-scans the whole app.
   (`bg-white/20 backdrop-blur-xl` over the shared mosaic photo) render a
   blurry dark blob where the photo has hair/shadow — technically correct
   per the masked-card technique, just visually rough.
-- `kimi_execute` (the DeepSeek/Kimi delegate tool this user's global
-  CLAUDE.md expects to be used for bulk/boilerplate work) was failing
-  with a 401 invalid-API-key error the whole time this was built, so ALL
-  of the actual migration code above was written directly by Claude, not
-  delegated. If the user has since fixed the key, future bulk/boilerplate
-  work on this repo should go back through `kimi_execute` per their
-  standing instructions.
+- The delegate tool is now `deepseek_execute`/`qwen_research` (an
+  MCP server routing to DeepSeek/Qwen), replacing the earlier
+  `kimi_execute` setup mentioned in older notes. Bulk/boilerplate work on
+  this repo should go through it per the user's standing CLAUDE.md rules.
