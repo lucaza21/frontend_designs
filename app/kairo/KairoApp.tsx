@@ -1,9 +1,100 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ChevronDown, Menu, X } from "./icons";
+import { Check, ChevronDown, Menu, X } from "./icons";
 
 const NAV_LINKS = ["Workflows", "Clients", "Solutions", "Pricing"];
+
+const CLIENTS = ["Vantra", "Loopwell", "Northstar Ops", "Fenwick & Co", "Greymark"];
+
+const TESTIMONIALS = [
+  {
+    initial: "V",
+    company: "Vantra",
+    quote:
+      "With Kairo we went from managing tedious operational work to having AI agents that handle everything.",
+    name: "Sara Klein",
+    role: "Dir of Operations",
+  },
+  {
+    initial: "L",
+    company: "Loopwell",
+    quote: "Our support backlog dropped by half in the first month.",
+    name: "Marcus Chen",
+    role: "Head of Support",
+  },
+  {
+    initial: "N",
+    company: "Northstar Ops",
+    quote:
+      "It just runs. We forget it's even there until the reports show up.",
+    name: "Elena Vos",
+    role: "COO",
+  },
+];
+
+const SOLUTIONS = [
+  {
+    title: "For Operations",
+    points: [
+      "Automated intake and routing",
+      "Zero manual reporting",
+      "Always-on scheduling",
+    ],
+  },
+  {
+    title: "For Founders",
+    points: [
+      "One dashboard, every workflow",
+      "No new headcount needed",
+      "Scales with the team",
+    ],
+  },
+  {
+    title: "For Support Teams",
+    points: [
+      "Faster first response",
+      "Consistent tagging and routing",
+      "Escalations that don't fall through",
+    ],
+  },
+];
+
+const PLANS = [
+  {
+    name: "Starter",
+    price: "$0",
+    period: "/mo",
+    description: "For small teams testing their first workflow.",
+    features: ["1 active workflow", "Email support", "Up to 500 tasks/mo"],
+    popular: false,
+  },
+  {
+    name: "Team",
+    price: "$49",
+    period: "/mo",
+    description: "For teams running Kairo across daily operations.",
+    features: [
+      "Unlimited workflows",
+      "Priority support",
+      "Up to 10,000 tasks/mo",
+      "Shared team dashboard",
+    ],
+    popular: true,
+  },
+  {
+    name: "Scale",
+    price: "Custom",
+    period: "",
+    description: "For orgs running Kairo across every department.",
+    features: [
+      "Unlimited everything",
+      "Dedicated success manager",
+      "Custom integrations",
+    ],
+    popular: false,
+  },
+];
 
 const WORKFLOWS = [
   {
@@ -75,7 +166,7 @@ export default function KairoApp() {
               {NAV_LINKS.map((label) => (
                 <a
                   key={label}
-                  href="#"
+                  href={`#${label.toLowerCase().replace(/\s+/g, "-")}`}
                   className="flex items-center gap-1 rounded-full px-4 py-1.5 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white transition-colors"
                 >
                   {label}
@@ -86,7 +177,7 @@ export default function KairoApp() {
               ))}
             </div>
             <a
-              href="#"
+              href="#pricing"
               className="flex items-center self-stretch rounded-full px-5 text-sm font-medium text-white hover:opacity-90"
               style={ctaGradient}
             >
@@ -133,7 +224,8 @@ export default function KairoApp() {
               {NAV_LINKS.map((label, i) => (
                 <a
                   key={label}
-                  href="#"
+                  href={`#${label.toLowerCase().replace(/\s+/g, "-")}`}
+                  onClick={() => setOpen(false)}
                   className="flex items-center justify-between rounded-xl px-4 py-3.5 text-base font-medium text-white/80 hover:bg-white/10 hover:text-white transition-all duration-300"
                   style={{
                     transitionDelay: open ? `${(i + 1) * 60}ms` : "0ms",
@@ -150,8 +242,10 @@ export default function KairoApp() {
             </div>
 
             <div className="mt-auto px-6 pb-10">
-              <button
-                className="w-full rounded-full py-3 text-sm font-medium text-white text-center hover:opacity-90 transition-all duration-[400ms]"
+              <a
+                href="#pricing"
+                onClick={() => setOpen(false)}
+                className="block w-full rounded-full py-3 text-sm font-medium text-white text-center hover:opacity-90 transition-all duration-[400ms]"
                 style={{
                   ...ctaGradient,
                   transitionDelay: open ? "300ms" : "0ms",
@@ -160,7 +254,7 @@ export default function KairoApp() {
                 }}
               >
                 Get started
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -233,7 +327,7 @@ export default function KairoApp() {
       </div>
     </section>
 
-    <section className="relative overflow-hidden bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+    <section id="workflows" className="relative overflow-hidden bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
       <div
         className="pointer-events-none absolute inset-0"
         style={{
@@ -280,6 +374,184 @@ export default function KairoApp() {
       </div>
     </section>
 
+    <section id="clients" className="relative overflow-hidden bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+      <div className="relative mx-auto max-w-5xl text-center">
+        <span
+          className="text-xs uppercase tracking-[0.25em] text-amber-400/80"
+          style={{ fontFamily: "var(--font-silkscreen)" }}
+        >
+          Clients
+        </span>
+        <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl lg:text-4xl">
+          Trusted by teams like yours
+        </h2>
+        <p className="mx-auto mt-3 max-w-md text-sm text-white/60 sm:text-base">
+          From five-person startups to global operations teams, Kairo runs
+          quietly in the background.
+        </p>
+      </div>
+
+      <div className="relative mx-auto mt-10 flex max-w-4xl flex-wrap items-center justify-center gap-x-10 gap-y-4 border-y border-white/10 py-8">
+        {CLIENTS.map((client) => (
+          <span
+            key={client}
+            className="text-sm font-semibold uppercase tracking-widest text-white/40 transition-colors hover:text-white/80"
+          >
+            {client}
+          </span>
+        ))}
+      </div>
+
+      <div className="relative mx-auto mt-12 grid max-w-5xl gap-4 sm:grid-cols-3 sm:gap-5">
+        {TESTIMONIALS.map((item) => (
+          <div
+            key={item.company}
+            className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.08] to-white/[0.02] p-6 backdrop-blur-lg"
+          >
+            <div className="mb-4 flex items-center gap-2">
+              <div className="flex h-6 w-6 items-center justify-center rounded bg-black text-xs font-bold text-white">
+                {item.initial}
+              </div>
+              <span className="text-sm font-semibold text-white">
+                {item.company}
+              </span>
+            </div>
+            <p className="text-sm leading-relaxed text-white/80">
+              {item.quote}
+            </p>
+            <div className="mt-5 flex items-center gap-3">
+              <div className="h-9 w-9 shrink-0 rounded-full bg-white/20" />
+              <div>
+                <div className="text-sm font-semibold text-white">
+                  {item.name}
+                </div>
+                <div className="text-xs text-white/60">{item.role}</div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section id="solutions" className="relative overflow-hidden bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(640px circle at 85% -10%, rgba(245,158,11,0.10), transparent 60%), radial-gradient(640px circle at 15% 110%, rgba(245,158,11,0.07), transparent 60%)",
+        }}
+      />
+
+      <div className="relative mx-auto max-w-5xl text-center">
+        <span
+          className="text-xs uppercase tracking-[0.25em] text-amber-400/80"
+          style={{ fontFamily: "var(--font-silkscreen)" }}
+        >
+          Solutions
+        </span>
+        <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl lg:text-4xl">
+          Built for how your team already works
+        </h2>
+        <p className="mx-auto mt-3 max-w-md text-sm text-white/60 sm:text-base">
+          Kairo adapts to the role, not the other way around.
+        </p>
+      </div>
+
+      <div className="relative mx-auto mt-12 grid max-w-5xl gap-4 sm:grid-cols-3 sm:gap-5">
+        {SOLUTIONS.map((item) => (
+          <div
+            key={item.title}
+            className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.08] to-white/[0.02] p-6 backdrop-blur-lg"
+          >
+            <h3 className="text-base font-semibold text-white">
+              {item.title}
+            </h3>
+            <ul className="mt-4 flex flex-col gap-3">
+              {item.points.map((point) => (
+                <li key={point} className="flex items-start gap-2">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
+                  <span className="text-sm leading-relaxed text-white/70">
+                    {point}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section id="pricing" className="relative overflow-hidden bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+      <div className="relative mx-auto max-w-5xl text-center">
+        <span
+          className="text-xs uppercase tracking-[0.25em] text-amber-400/80"
+          style={{ fontFamily: "var(--font-silkscreen)" }}
+        >
+          Pricing
+        </span>
+        <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl lg:text-4xl">
+          Simple pricing, no surprises
+        </h2>
+        <p className="mx-auto mt-3 max-w-md text-sm text-white/60 sm:text-base">
+          Start free. Upgrade when Kairo is running workflows you don&apos;t
+          want to live without.
+        </p>
+      </div>
+
+      <div className="relative mx-auto mt-12 grid max-w-5xl gap-5 sm:grid-cols-3">
+        {PLANS.map((plan) => (
+          <div
+            key={plan.name}
+            className={`relative flex flex-col rounded-2xl border p-7 backdrop-blur-lg ${
+              plan.popular
+                ? "border-amber-400/40 bg-gradient-to-b from-white/[0.12] to-white/[0.03] shadow-[0_0_40px_rgba(245,158,11,0.12)]"
+                : "border-white/10 bg-gradient-to-b from-white/[0.07] to-white/[0.02]"
+            }`}
+          >
+            {plan.popular && (
+              <span
+                className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-amber-400 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-black"
+                style={{ fontFamily: "var(--font-silkscreen)" }}
+              >
+                Most popular
+              </span>
+            )}
+            <h3 className="text-base font-semibold text-white">
+              {plan.name}
+            </h3>
+            <div className="mt-3 flex items-baseline gap-1">
+              <span className="text-3xl font-semibold text-white">
+                {plan.price}
+              </span>
+              <span className="text-sm text-white/50">{plan.period}</span>
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-white/60">
+              {plan.description}
+            </p>
+            <ul className="mt-6 flex flex-1 flex-col gap-3">
+              {plan.features.map((feature) => (
+                <li key={feature} className="flex items-start gap-2">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
+                  <span className="text-sm leading-relaxed text-white/70">
+                    {feature}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <a
+              href="#"
+              className={`mt-8 rounded-full py-3 text-center text-sm font-medium transition-opacity hover:opacity-90 ${
+                plan.popular ? "text-white" : "border border-white/15 text-white/80"
+              }`}
+              style={plan.popular ? ctaGradient : undefined}
+            >
+              Get started
+            </a>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <section className="relative overflow-hidden bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
       <div className="relative mx-auto max-w-3xl">
         <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.07] to-white/[0.01] p-10 text-center sm:p-16">
@@ -294,7 +566,7 @@ export default function KairoApp() {
             </p>
             <div className="flex flex-col items-center gap-3 sm:flex-row">
               <a
-                href="#"
+                href="#pricing"
                 className="rounded-full px-6 py-3 text-sm font-medium text-white shadow-[0_0_30px_rgba(245,158,11,0.18)] hover:opacity-90"
                 style={ctaGradient}
               >
@@ -329,7 +601,7 @@ export default function KairoApp() {
           {NAV_LINKS.map((label) => (
             <a
               key={label}
-              href="#"
+              href={`#${label.toLowerCase().replace(/\s+/g, "-")}`}
               className="text-sm text-white/60 transition-colors hover:text-white"
             >
               {label}

@@ -20,6 +20,7 @@ export default function KairoLayout({
     <div
       className={`${geist.className} ${silkscreen.variable} w-full bg-black`}
     >
+      <style>{`html { scroll-behavior: smooth; }`}</style>
       {children}
     </div>
   );
