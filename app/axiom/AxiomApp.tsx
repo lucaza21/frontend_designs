@@ -184,6 +184,8 @@ export default function AxiomApp() {
         <source src="/axiom/hero.mp4" type="video/mp4" />
       </video>
 
+      <div className="hero-scrim" aria-hidden="true" />
+
       <header className="site-header">
         <div className="header-inner">
           <a className="logo-btn" href="#" aria-label="Axiom home">

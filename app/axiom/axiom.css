@@ -203,6 +203,16 @@
   pointer-events:none;
 }
 
+.hero-scrim {
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0) 62%),
+    radial-gradient(ellipse at 50% 55%, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 60%);
+}
+
 .anim {
   opacity:0;
   transform: translateY(22px) scale(0.98);
@@ -461,6 +471,7 @@
   font-size: clamp(28px,6.2vw,80px);
   letter-spacing:-0.04em;
   line-height:1.12;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.45), 0 1px 3px rgba(0,0,0,0.5);
 }
 
 .headline .line {
@@ -494,10 +505,11 @@
   max-width: min(500px, 92%);
   margin: clamp(14px,2vh,20px) 0 0;
   font-size: clamp(15.5px, calc(1.55vw + 2pt), 18.5px);
-  color:#d0d0d0;
+  color:#eee;
   opacity:0;
   line-height:1.55;
   font-weight:400;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.6);
   animation: headlineFade 0.85s cubic-bezier(0.22,1,0.36,1) 0.28s forwards;
 }
 
