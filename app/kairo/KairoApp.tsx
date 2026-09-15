@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Check, ChevronDown, Menu, X } from "./icons";
+import { ArrowUp, Check, ChevronDown, Menu, X } from "./icons";
 
 const NAV_LINKS = ["Workflows", "Clients", "Solutions", "Pricing"];
 
@@ -116,6 +116,8 @@ const WORKFLOWS = [
 
 export default function KairoApp() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [showTop, setShowTop] = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -124,117 +126,115 @@ export default function KairoApp() {
     };
   }, [open]);
 
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 20);
+      setShowTop(window.scrollY > 600);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const ctaGradient = {
     background: "linear-gradient(to bottom, #2B2B2B, #101010)",
   };
 
   return (
     <>
-    <section className="relative h-screen w-full overflow-hidden bg-black">
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+        scrolled ? "bg-black/70 backdrop-blur-lg border-b border-white/10" : "bg-transparent"
+      }`}
+    >
+      <nav className="flex items-center justify-between px-5 py-5 sm:px-8 sm:py-6 lg:px-12">
+        <div className="flex items-center gap-2">
+          <svg
+            className="h-6 w-6 fill-white"
+            viewBox="0 0 256 256"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M 128 128 C 128 198.692 70.692 256 0 256 C 0 185.308 57.308 128 128 128 Z M 128 128 C 198.692 128 256 185.308 256 256 C 185.308 256 128 198.692 128 128 Z M 0 0 C 70.692 0 128 57.308 128 128 C 57.308 128 0 70.692 0 0 Z M 256 0 C 256 70.692 198.692 128 128 128 C 128 57.308 185.308 0 256 0 Z" />
+          </svg>
+          <span className="text-lg font-semibold text-white">
+            kairo
+          </span>
+        </div>
+
+        <div className="hidden md:flex items-center gap-3">
+          <div className="flex items-center gap-1 rounded-full bg-white/10 px-1.5 py-1.5 backdrop-blur-lg">
+            {NAV_LINKS.map((label) => (
+              <a
+                key={label}
+                href={`#${label.toLowerCase().replace(/\s+/g, "-")}`}
+                className="flex items-center gap-1 rounded-full px-4 py-1.5 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white transition-colors"
+              >
+                {label}
+                {label === "Solutions" && (
+                  <ChevronDown className="h-3.5 w-3.5" />
+                )}
+              </a>
+            ))}
+          </div>
+          <a
+            href="#pricing"
+            className="flex items-center self-stretch rounded-full px-5 text-sm font-medium text-white hover:opacity-90"
+            style={ctaGradient}
+          >
+            Get started
+          </a>
+        </div>
+
+        <button
+          className="md:hidden relative z-50 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 backdrop-blur-lg text-white"
+          onClick={() => setOpen(!open)}
+          aria-label="Toggle menu"
+        >
+          <Menu
+            className={`absolute h-5 w-5 transition-all duration-300 ${
+              open
+                ? "rotate-90 scale-0 opacity-0"
+                : "rotate-0 scale-100 opacity-100"
+            }`}
+          />
+          <X
+            className={`absolute h-5 w-5 transition-all duration-300 ${
+              open
+                ? "rotate-0 scale-100 opacity-100"
+                : "-rotate-90 scale-0 opacity-0"
+            }`}
+          />
+        </button>
+      </nav>
+
       <div
-        className="absolute inset-0"
-        style={{ background: "linear-gradient(160deg, #1a1a1a 0%, #000 60%)" }}
+        onClick={() => setOpen(false)}
+        className={`fixed inset-0 z-40 bg-black/80 backdrop-blur-md transition-opacity duration-300 md:hidden ${
+          open ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
       />
 
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 h-full w-full object-cover"
+      <div
+        className={`fixed right-0 top-0 z-40 h-full w-72 bg-black/90 backdrop-blur-xl transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] md:hidden ${
+          open ? "translate-x-0" : "translate-x-full"
+        }`}
       >
-        <source src="/kairo/hero.mp4" type="video/mp4" />
-      </video>
-
-      <div className="relative z-10 flex h-full flex-col">
-        <nav className="flex items-center justify-between px-5 py-5 sm:px-8 sm:py-6 lg:px-12">
-          <div className="flex items-center gap-2">
-            <svg
-              className="h-6 w-6 fill-[#010101] lg:fill-white"
-              viewBox="0 0 256 256"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M 128 128 C 128 198.692 70.692 256 0 256 C 0 185.308 57.308 128 128 128 Z M 128 128 C 198.692 128 256 185.308 256 256 C 185.308 256 128 198.692 128 128 Z M 0 0 C 70.692 0 128 57.308 128 128 C 57.308 128 0 70.692 0 0 Z M 256 0 C 256 70.692 198.692 128 128 128 C 128 57.308 185.308 0 256 0 Z" />
-            </svg>
-            <span className="text-lg font-semibold text-[#010101] lg:text-white">
-              kairo
-            </span>
-          </div>
-
-          <div className="hidden md:flex items-center gap-3">
-            <div className="flex items-center gap-1 rounded-full bg-white/10 px-1.5 py-1.5 backdrop-blur-lg">
-              {NAV_LINKS.map((label) => (
-                <a
-                  key={label}
-                  href={`#${label.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="flex items-center gap-1 rounded-full px-4 py-1.5 text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white transition-colors"
-                >
-                  {label}
-                  {label === "Solutions" && (
-                    <ChevronDown className="h-3.5 w-3.5" />
-                  )}
-                </a>
-              ))}
-            </div>
-            <a
-              href="#pricing"
-              className="flex items-center self-stretch rounded-full px-5 text-sm font-medium text-white hover:opacity-90"
-              style={ctaGradient}
-            >
-              Get started
-            </a>
-          </div>
-
-          <button
-            className="md:hidden relative z-50 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 backdrop-blur-lg text-[#010101] lg:text-white"
-            onClick={() => setOpen(!open)}
-            aria-label="Toggle menu"
-          >
-            <Menu
-              className={`absolute h-5 w-5 transition-all duration-300 ${
-                open
-                  ? "rotate-90 scale-0 opacity-0"
-                  : "rotate-0 scale-100 opacity-100"
-              }`}
-            />
-            <X
-              className={`absolute h-5 w-5 transition-all duration-300 ${
-                open
-                  ? "rotate-0 scale-100 opacity-100"
-                  : "-rotate-90 scale-0 opacity-0"
-              }`}
-            />
-          </button>
-        </nav>
-
-        <div
-          onClick={() => setOpen(false)}
-          className={`fixed inset-0 z-40 bg-black/80 backdrop-blur-md transition-opacity duration-300 md:hidden ${
-            open ? "opacity-100" : "pointer-events-none opacity-0"
-          }`}
-        />
-
-        <div
-          className={`fixed right-0 top-0 z-40 h-full w-72 bg-black/90 backdrop-blur-xl transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] md:hidden ${
-            open ? "translate-x-0" : "translate-x-full"
-          }`}
-        >
-          <div className="flex h-full flex-col">
-            <div className="flex flex-col gap-2 px-6 pt-24">
-              {NAV_LINKS.map((label, i) => (
-                <a
-                  key={label}
-                  href={`#${label.toLowerCase().replace(/\s+/g, "-")}`}
-                  onClick={() => setOpen(false)}
-                  className="flex items-center justify-between rounded-xl px-4 py-3.5 text-base font-medium text-white/80 hover:bg-white/10 hover:text-white transition-all duration-300"
-                  style={{
-                    transitionDelay: open ? `${(i + 1) * 60}ms` : "0ms",
-                    opacity: open ? 1 : 0,
-                    transform: open ? "translateX(0)" : "translateX(24px)",
-                  }}
-                >
-                  {label}
-                  {label === "Solutions" && (
+        <div className="flex h-full flex-col">
+          <div className="flex flex-col gap-2 px-6 pt-24">
+            {NAV_LINKS.map((label, i) => (
+              <a
+                key={label}
+                href={`#${label.toLowerCase().replace(/\s+/g, "-")}`}
+                onClick={() => setOpen(false)}
+                className="flex items-center justify-between rounded-xl px-4 py-3.5 text-base font-medium text-white/80 hover:bg-white/10 hover:text-white transition-all duration-300"
+                style={{
+                  transitionDelay: open ? `${(i + 1) * 60}ms` : "0ms",
+                  opacity: open ? 1 : 0,
+                  transform: open ? "translateX(0)" : "translateX(24px)",
+                }}
+              >
+                {label}
+                {label === "Solutions" && (
                     <ChevronDown className="h-3.5 w-3.5" />
                   )}
                 </a>
@@ -258,7 +258,25 @@ export default function KairoApp() {
             </div>
           </div>
         </div>
+    </header>
 
+    <section className="relative h-screen w-full overflow-hidden bg-black">
+      <div
+        className="absolute inset-0"
+        style={{ background: "linear-gradient(160deg, #1a1a1a 0%, #000 60%)" }}
+      />
+
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 h-full w-full object-cover"
+      >
+        <source src="/kairo/hero.mp4" type="video/mp4" />
+      </video>
+
+      <div className="relative z-10 flex h-full flex-col">
         <main className="mt-auto flex flex-col gap-6 px-5 pb-8 sm:gap-8 sm:px-8 sm:pb-12 lg:flex-row lg:items-end lg:justify-between lg:px-12 lg:pb-16">
           <div className="max-w-xl">
             <h1 className="text-3xl font-semibold leading-[1.1] tracking-tight text-[#010101] sm:text-4xl lg:text-[3.5rem] lg:text-white">
@@ -327,7 +345,7 @@ export default function KairoApp() {
       </div>
     </section>
 
-    <section id="workflows" className="relative overflow-hidden bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+    <section id="workflows" className="relative scroll-mt-24 overflow-hidden bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
       <div
         className="pointer-events-none absolute inset-0"
         style={{
@@ -374,7 +392,7 @@ export default function KairoApp() {
       </div>
     </section>
 
-    <section id="clients" className="relative overflow-hidden bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+    <section id="clients" className="relative scroll-mt-24 overflow-hidden bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
       <div className="relative mx-auto max-w-5xl text-center">
         <span
           className="text-xs uppercase tracking-[0.25em] text-amber-400/80"
@@ -433,7 +451,7 @@ export default function KairoApp() {
       </div>
     </section>
 
-    <section id="solutions" className="relative overflow-hidden bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+    <section id="solutions" className="relative scroll-mt-24 overflow-hidden bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
       <div
         className="pointer-events-none absolute inset-0"
         style={{
@@ -481,7 +499,7 @@ export default function KairoApp() {
       </div>
     </section>
 
-    <section id="pricing" className="relative overflow-hidden bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+    <section id="pricing" className="relative scroll-mt-24 overflow-hidden bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
       <div className="relative mx-auto max-w-5xl text-center">
         <span
           className="text-xs uppercase tracking-[0.25em] text-amber-400/80"
@@ -614,6 +632,16 @@ export default function KairoApp() {
         &copy; {new Date().getFullYear()} Kairo. All rights reserved.
       </div>
     </footer>
+
+    <button
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      aria-label="Back to top"
+      className={`fixed bottom-6 right-6 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/70 text-white backdrop-blur-lg shadow-[0_0_20px_rgba(0,0,0,0.4)] transition-all duration-300 hover:border-amber-400/40 hover:text-amber-400 sm:bottom-8 sm:right-8 ${
+        showTop ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
+      }`}
+    >
+      <ArrowUp className="h-5 w-5" />
+    </button>
     </>
   );
 }
