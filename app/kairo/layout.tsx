@@ -18,7 +18,7 @@ export default function KairoLayout({
 }) {
   return (
     <div
-      className={`${geist.className} ${silkscreen.variable} h-screen w-full overflow-hidden bg-black`}
+      className={`${geist.className} ${silkscreen.variable} w-full bg-black`}
     >
       {children}
     </div>

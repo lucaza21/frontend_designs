@@ -5,6 +5,24 @@ import { ChevronDown, Menu, X } from "./icons";
 
 const NAV_LINKS = ["Workflows", "Clients", "Solutions", "Pricing"];
 
+const WORKFLOWS = [
+  {
+    title: "Inbox Triage",
+    description:
+      "Kairo reads, tags, and routes incoming requests before your team even opens the inbox.",
+  },
+  {
+    title: "Reporting",
+    description:
+      "Daily and weekly summaries assembled automatically from every workflow Kairo touches.",
+  },
+  {
+    title: "Scheduling",
+    description:
+      "Meetings, hand-offs and reminders synced across every calendar your team uses.",
+  },
+];
+
 export default function KairoApp() {
   const [open, setOpen] = useState(false);
 
@@ -20,6 +38,7 @@ export default function KairoApp() {
   };
 
   return (
+    <>
     <section className="relative h-screen w-full overflow-hidden bg-black">
       <div
         className="absolute inset-0"
@@ -213,5 +232,82 @@ export default function KairoApp() {
         </main>
       </div>
     </section>
+
+    <section className="bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+      <div className="mx-auto max-w-5xl text-center">
+        <h2 className="text-2xl font-semibold text-white sm:text-3xl lg:text-4xl">
+          Automations that run themselves
+        </h2>
+        <p className="mx-auto mt-3 max-w-md text-sm text-white/60 sm:text-base">
+          Three workflows Kairo handles quietly in the background, every day.
+        </p>
+      </div>
+
+      <div className="mx-auto mt-12 grid max-w-5xl gap-4 sm:grid-cols-3 sm:gap-5">
+        {WORKFLOWS.map((item) => (
+          <div
+            key={item.title}
+            className="rounded-2xl bg-white/10 p-6 backdrop-blur-lg"
+          >
+            <h3 className="text-base font-semibold text-white">
+              {item.title}
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-white/70">
+              {item.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section className="bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+      <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 rounded-3xl bg-white/5 p-10 text-center sm:p-16">
+        <h2 className="text-2xl font-semibold text-white sm:text-3xl">
+          Ready to hand off the busywork?
+        </h2>
+        <p className="max-w-md text-sm text-white/60 sm:text-base">
+          Start free. Bring Kairo into the workflows that eat your week.
+        </p>
+        <a
+          href="#"
+          className="rounded-full px-6 py-3 text-sm font-medium text-white hover:opacity-90"
+          style={ctaGradient}
+        >
+          Get started
+        </a>
+      </div>
+    </section>
+
+    <footer className="border-t border-white/10 bg-black px-5 py-12 sm:px-8 lg:px-12">
+      <div className="mx-auto flex max-w-5xl flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-2">
+          <svg
+            className="h-6 w-6 fill-white"
+            viewBox="0 0 256 256"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M 128 128 C 128 198.692 70.692 256 0 256 C 0 185.308 57.308 128 128 128 Z M 128 128 C 198.692 128 256 185.308 256 256 C 185.308 256 128 198.692 128 128 Z M 0 0 C 70.692 0 128 57.308 128 128 C 57.308 128 0 70.692 0 0 Z M 256 0 C 256 70.692 198.692 128 128 128 C 128 57.308 185.308 0 256 0 Z" />
+          </svg>
+          <span className="text-lg font-semibold text-white">kairo</span>
+        </div>
+
+        <div className="flex flex-wrap gap-x-6 gap-y-2">
+          {NAV_LINKS.map((label) => (
+            <a
+              key={label}
+              href="#"
+              className="text-sm text-white/60 transition-colors hover:text-white"
+            >
+              {label}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div className="mx-auto mt-8 max-w-5xl border-t border-white/10 pt-6 text-xs text-white/40">
+        &copy; {new Date().getFullYear()} Kairo. All rights reserved.
+      </div>
+    </footer>
+    </>
   );
 }

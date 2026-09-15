@@ -278,6 +278,42 @@ export default function StudioFractalApp() {
           </div>
         </div>
       </section>
+
+      <footer className="border-t border-white/10 bg-black px-4 py-14 md:px-8 md:py-20">
+        <div className="mx-auto flex max-w-7xl flex-col gap-10 md:flex-row md:items-start md:justify-between">
+          <div>
+            <p className="text-2xl font-medium" style={{ color: "#E1E0CC" }}>
+              Studio Fractal<span className="align-super text-sm">*</span>
+            </p>
+            <p className="mt-3 max-w-xs text-xs text-gray-500 sm:text-sm">
+              A worldwide network of visual artists, filmmakers and
+              storytellers, working in light and perspective.
+            </p>
+          </div>
+
+          <nav className="flex flex-wrap gap-x-8 gap-y-3">
+            {HERO_NAV_ITEMS.map((item) => (
+              <a
+                key={item}
+                href="#"
+                className="nav-link text-xs sm:text-sm"
+                style={{ color: "rgba(225,224,204,0.8)" }}
+              >
+                {item}
+              </a>
+            ))}
+          </nav>
+
+          <div className="text-xs text-gray-500 sm:text-sm">
+            <p>hello@studiofractal.co</p>
+            <p className="mt-1">Berlin &middot; Paris</p>
+          </div>
+        </div>
+
+        <div className="mx-auto mt-12 max-w-7xl border-t border-white/10 pt-6 text-[10px] text-gray-600 sm:text-xs">
+          &copy; {new Date().getFullYear()} Studio Fractal. All rights reserved.
+        </div>
+      </footer>
     </>
   );
 }

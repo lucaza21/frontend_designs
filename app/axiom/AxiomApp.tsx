@@ -11,6 +11,29 @@ const STATS = [
   { glyph: "#", target: 2.4, suffix: "M", decimals: 1, label: "Context Windows" },
 ];
 
+const CAPABILITIES = [
+  {
+    glyph: "{}",
+    title: "Modular Reasoning",
+    description: "Composable reasoning chains, swap models without rewriting logic.",
+  },
+  {
+    glyph: "->",
+    title: "Adaptive Memory",
+    description: "Context that persists and compresses itself across long sessions.",
+  },
+  {
+    glyph: "()",
+    title: "Secure By Design",
+    description: "Every call sandboxed, every credential scoped and revocable.",
+  },
+  {
+    glyph: "::",
+    title: "Elastic Scale",
+    description: "From one workflow to thousands of concurrent agents, no re-architecture.",
+  },
+];
+
 function easeOutCubic(t: number) {
   return 1 - Math.pow(1 - t, 3);
 }
@@ -21,7 +44,7 @@ function formatValue(value: number, decimals: number, suffix: string) {
 
 export default function AxiomApp() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const statsRef = useRef<HTMLElement | null>(null);
+  const statsRef = useRef<HTMLDivElement | null>(null);
   const valueRefs = useRef<Array<HTMLSpanElement | null>>([]);
 
   const closeMenu = useCallback(() => {
@@ -146,7 +169,8 @@ export default function AxiomApp() {
   }, []);
 
   return (
-    <div className="page">
+    <>
+    <section className="hero-viewport">
       <div className="bg-fallback" aria-hidden="true" />
 
       <video
@@ -316,8 +340,64 @@ export default function AxiomApp() {
           Get Started
         </a>
       </main>
+    </section>
 
-      <footer className="stats" ref={statsRef}>
+    <section className="section-pad" id="capabilities">
+      <div className="capabilities-heading anim" style={{ "--d": "0s" } as React.CSSProperties}>
+        <h2>Built for how AI actually ships.</h2>
+        <p>Four primitives that compose into anything you need to build.</p>
+      </div>
+      <div className="capabilities-grid">
+        {CAPABILITIES.map((cap, i) => (
+          <div
+            className="capability-card anim"
+            key={cap.title}
+            style={{ "--d": `${i * 0.08}s` } as React.CSSProperties}
+          >
+            <span className="capability-glyph">{cap.glyph}</span>
+            <h3>{cap.title}</h3>
+            <p>{cap.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section className="section-pad" id="cta-band">
+      <div className="cta-band anim" style={{ "--d": "0s" } as React.CSSProperties}>
+        <h2>Ready to build with Axiom?</h2>
+        <p>Start free. Scale when you&apos;re ready.</p>
+        <a className="cta" href="#">
+          Get Started
+        </a>
+      </div>
+    </section>
+
+    <footer className="site-footer">
+      <div className="footer-top">
+        <div className="footer-brand">
+          <svg
+            className="logo-mark"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            aria-hidden="true"
+          >
+            <path d="M12 3.5 20.5 12 12 20.5 3.5 12Z" />
+            <path d="M7.5 12h9" />
+          </svg>
+          axiom
+        </div>
+        <div className="footer-links">
+          <a href="#">Product</a>
+          <a href="#">Docs</a>
+          <a href="#">Status</a>
+        </div>
+      </div>
+
+      <div className="stats" ref={statsRef}>
         {STATS.map((stat, i) => (
           <div className="stat" key={stat.label}>
             <span className="stat-glyph">{stat.glyph}</span>
@@ -332,7 +412,12 @@ export default function AxiomApp() {
             <span className="stat-label">{stat.label}</span>
           </div>
         ))}
-      </footer>
-    </div>
+      </div>
+
+      <div className="footer-copyright">
+        &copy; {new Date().getFullYear()} Axiom. All rights reserved.
+      </div>
+    </footer>
+    </>
   );
 }
