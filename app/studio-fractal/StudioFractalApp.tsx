@@ -10,11 +10,39 @@ const HERO_NAV_ITEMS = ["Our story", "Collective", "Workshops", "Programs", "Inq
 
 const NAV_HREFS: Record<string, string> = {
   "Our story": "#story",
-  Collective: "#top",
-  Workshops: "#programs",
+  Collective: "#collective",
+  Workshops: "#workshops",
   Programs: "#programs",
   Inquiries: "#inquiries",
 };
+
+const COLLECTIVE_STATS = [
+  { value: "120+", label: "Artists in the network" },
+  { value: "30", label: "Countries represented" },
+  { value: "9", label: "Festival selections" },
+  { value: "7", label: "Years running" },
+];
+
+const WORKSHOPS = [
+  {
+    title: "Color Grading Intensive",
+    format: "3-day intensive · Berlin",
+    description:
+      "Hands-on grading sessions with working DPs, from raw footage to a finished look.",
+  },
+  {
+    title: "Narrative Design Lab",
+    format: "6-week remote cohort",
+    description:
+      "Structure, pacing and voice — built around the project you're already shooting.",
+  },
+  {
+    title: "Cinematography on Location",
+    format: "Weekend workshop · Paris",
+    description:
+      "Location scouting, lighting and camera blocking with the full crew on set.",
+  },
+];
 
 type FeatureCard =
   | { kind: "video"; caption: string }
@@ -238,6 +266,77 @@ export default function StudioFractalApp() {
               <AnimatedLetter key={i} char={char} index={i} total={ABOUT_TEXT.length} progress={scrollYProgress} />
             ))}
           </p>
+        </div>
+      </section>
+
+      <section id="collective" className="relative scroll-mt-28 bg-black px-4 py-20 md:py-32">
+        <div className="mx-auto max-w-6xl">
+          <p className="mb-4 text-[10px] sm:text-xs text-[#DEDBC8]">The collective</p>
+          <WordsPullUpMultiStyle
+            className="max-w-3xl text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal"
+            style={{ color: "#E1E0CC" }}
+            segments={[
+              { text: "A network built on trust,", className: "font-normal" },
+              { text: "not headcount.", className: "font-instrument-serif" },
+            ]}
+          />
+          <p className="mt-6 max-w-xl text-xs sm:text-sm md:text-base text-gray-400">
+            Every member joins by invitation from someone already inside. No
+            agency roster, no bench — just people whose work we&apos;d put our
+            own name on.
+          </p>
+
+          <div className="mt-16 grid grid-cols-2 gap-8 border-t border-white/10 pt-10 md:grid-cols-4">
+            {COLLECTIVE_STATS.map((stat) => (
+              <div key={stat.label}>
+                <p
+                  className="font-instrument-serif text-4xl sm:text-5xl md:text-6xl"
+                  style={{ color: "#E1E0CC" }}
+                >
+                  {stat.value}
+                </p>
+                <p className="mt-2 text-xs sm:text-sm text-gray-500">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="workshops" className="relative scroll-mt-28 bg-black px-4 py-20 md:py-32">
+        <div className="mx-auto max-w-6xl">
+          <p className="mb-4 text-[10px] sm:text-xs text-[#DEDBC8]">Workshops</p>
+          <WordsPullUpMultiStyle
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal"
+            style={{ color: "#E1E0CC" }}
+            segments={[{ text: "Learn how the collective actually works.", className: "" }]}
+          />
+
+          <div className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-3">
+            {WORKSHOPS.map((workshop) => (
+              <div
+                key={workshop.title}
+                className="flex flex-col rounded-2xl bg-[#212121] p-6 md:p-8"
+              >
+                <p className="text-xs text-gray-500">{workshop.format}</p>
+                <h3
+                  className="mt-3 text-lg font-medium md:text-xl"
+                  style={{ color: "#E1E0CC" }}
+                >
+                  {workshop.title}
+                </h3>
+                <p className="mt-3 text-xs sm:text-sm text-gray-400">
+                  {workshop.description}
+                </p>
+                <a
+                  href="#inquiries"
+                  className="mt-auto inline-flex w-fit items-center gap-2 pt-8 text-sm text-[#DEDBC8]"
+                >
+                  Reserve a seat
+                  <svg className="h-4 w-4 -rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                </a>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
