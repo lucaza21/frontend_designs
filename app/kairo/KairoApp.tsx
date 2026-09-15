@@ -392,62 +392,77 @@ export default function KairoApp() {
       </div>
     </section>
 
-    <section id="clients" className="relative scroll-mt-24 overflow-hidden bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
-      <div className="relative mx-auto max-w-5xl text-center">
+    <section id="clients" className="relative scroll-mt-24 overflow-hidden bg-[#100d09] px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+      <div className="relative mx-auto max-w-5xl">
         <span
           className="text-xs uppercase tracking-[0.25em] text-amber-400/80"
           style={{ fontFamily: "var(--font-silkscreen)" }}
         >
           Clients
         </span>
-        <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl lg:text-4xl">
+        <h2 className="mt-3 max-w-md text-2xl font-semibold text-white sm:text-3xl lg:text-4xl">
           Trusted by teams like yours
         </h2>
-        <p className="mx-auto mt-3 max-w-md text-sm text-white/60 sm:text-base">
-          From five-person startups to global operations teams, Kairo runs
-          quietly in the background.
-        </p>
-      </div>
 
-      <div className="relative mx-auto mt-10 flex max-w-4xl flex-wrap items-center justify-center gap-x-10 gap-y-4 border-y border-white/10 py-8">
-        {CLIENTS.map((client) => (
-          <span
-            key={client}
-            className="text-sm font-semibold uppercase tracking-widest text-white/40 transition-colors hover:text-white/80"
-          >
-            {client}
-          </span>
-        ))}
-      </div>
-
-      <div className="relative mx-auto mt-12 grid max-w-5xl gap-4 sm:grid-cols-3 sm:gap-5">
-        {TESTIMONIALS.map((item) => (
-          <div
-            key={item.company}
-            className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.08] to-white/[0.02] p-6 backdrop-blur-lg"
-          >
-            <div className="mb-4 flex items-center gap-2">
-              <div className="flex h-6 w-6 items-center justify-center rounded bg-black text-xs font-bold text-white">
-                {item.initial}
-              </div>
-              <span className="text-sm font-semibold text-white">
-                {item.company}
-              </span>
-            </div>
-            <p className="text-sm leading-relaxed text-white/80">
-              {item.quote}
+        <div className="mt-14 grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-12">
+          <div className="lg:col-span-7">
+            <span
+              className="block text-6xl leading-none text-amber-400/40 sm:text-7xl"
+              style={{ fontFamily: "var(--font-silkscreen)" }}
+            >
+              &ldquo;
+            </span>
+            <p className="-mt-6 text-xl leading-snug text-white sm:text-2xl lg:text-3xl">
+              {TESTIMONIALS[0].quote}
             </p>
-            <div className="mt-5 flex items-center gap-3">
-              <div className="h-9 w-9 shrink-0 rounded-full bg-white/20" />
+            <div className="mt-6 flex items-center gap-3">
+              <div className="h-10 w-10 shrink-0 rounded-full bg-white/20" />
               <div>
                 <div className="text-sm font-semibold text-white">
-                  {item.name}
+                  {TESTIMONIALS[0].name}
                 </div>
-                <div className="text-xs text-white/60">{item.role}</div>
+                <div className="text-xs text-white/50">
+                  {TESTIMONIALS[0].role} &middot; {TESTIMONIALS[0].company}
+                </div>
               </div>
             </div>
           </div>
-        ))}
+
+          <div className="flex flex-col gap-4 lg:col-span-5">
+            {TESTIMONIALS.slice(1).map((item) => (
+              <div
+                key={item.company}
+                className="rounded-2xl border border-white/10 bg-white/[0.03] p-5"
+              >
+                <div className="mb-3 flex items-center gap-2">
+                  <div className="flex h-6 w-6 items-center justify-center rounded bg-black text-xs font-bold text-white">
+                    {item.initial}
+                  </div>
+                  <span className="text-sm font-semibold text-white">
+                    {item.company}
+                  </span>
+                </div>
+                <p className="text-sm leading-relaxed text-white/70">
+                  {item.quote}
+                </p>
+                <div className="mt-3 text-xs text-white/50">
+                  {item.name}, {item.role}
+                </div>
+              </div>
+            ))}
+
+            <div className="mt-2 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-white/10 pt-6">
+              {CLIENTS.map((client) => (
+                <span
+                  key={client}
+                  className="text-xs font-semibold uppercase tracking-widest text-white/30 transition-colors hover:text-white/60"
+                >
+                  {client}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -460,46 +475,64 @@ export default function KairoApp() {
         }}
       />
 
-      <div className="relative mx-auto max-w-5xl text-center">
+      <div className="relative mx-auto max-w-5xl">
         <span
           className="text-xs uppercase tracking-[0.25em] text-amber-400/80"
           style={{ fontFamily: "var(--font-silkscreen)" }}
         >
           Solutions
         </span>
-        <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl lg:text-4xl">
+        <h2 className="mt-3 max-w-lg text-2xl font-semibold text-white sm:text-3xl lg:text-4xl">
           Built for how your team already works
         </h2>
-        <p className="mx-auto mt-3 max-w-md text-sm text-white/60 sm:text-base">
+        <p className="mt-3 max-w-md text-sm text-white/60 sm:text-base">
           Kairo adapts to the role, not the other way around.
         </p>
       </div>
 
-      <div className="relative mx-auto mt-12 grid max-w-5xl gap-4 sm:grid-cols-3 sm:gap-5">
-        {SOLUTIONS.map((item) => (
-          <div
-            key={item.title}
-            className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.08] to-white/[0.02] p-6 backdrop-blur-lg"
-          >
-            <h3 className="text-base font-semibold text-white">
-              {item.title}
-            </h3>
-            <ul className="mt-4 flex flex-col gap-3">
-              {item.points.map((point) => (
-                <li key={point} className="flex items-start gap-2">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
-                  <span className="text-sm leading-relaxed text-white/70">
-                    {point}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+      <div className="relative mx-auto mt-12 grid max-w-5xl gap-4 sm:gap-5">
+        <div className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.08] to-white/[0.02] p-6 backdrop-blur-lg sm:flex sm:items-center sm:gap-10 sm:p-8">
+          <h3 className="text-base font-semibold text-white sm:w-48 sm:shrink-0 sm:text-lg">
+            {SOLUTIONS[0].title}
+          </h3>
+          <ul className="mt-4 flex flex-col gap-3 sm:mt-0 sm:flex-1 sm:flex-row sm:flex-wrap sm:gap-x-8">
+            {SOLUTIONS[0].points.map((point) => (
+              <li key={point} className="flex items-start gap-2">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
+                <span className="text-sm leading-relaxed text-white/70">
+                  {point}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
+          {SOLUTIONS.slice(1).map((item) => (
+            <div
+              key={item.title}
+              className="rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.08] to-white/[0.02] p-6 backdrop-blur-lg"
+            >
+              <h3 className="text-base font-semibold text-white">
+                {item.title}
+              </h3>
+              <ul className="mt-4 flex flex-col gap-3">
+                {item.points.map((point) => (
+                  <li key={point} className="flex items-start gap-2">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" />
+                    <span className="text-sm leading-relaxed text-white/70">
+                      {point}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
 
-    <section id="pricing" className="relative scroll-mt-24 overflow-hidden bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+    <section id="pricing" className="relative scroll-mt-24 overflow-hidden bg-[#100d09] px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
       <div className="relative mx-auto max-w-5xl text-center">
         <span
           className="text-xs uppercase tracking-[0.25em] text-amber-400/80"
@@ -516,13 +549,13 @@ export default function KairoApp() {
         </p>
       </div>
 
-      <div className="relative mx-auto mt-12 grid max-w-5xl gap-5 sm:grid-cols-3">
+      <div className="relative mx-auto mt-12 grid max-w-5xl items-center gap-5 sm:grid-cols-3">
         {PLANS.map((plan) => (
           <div
             key={plan.name}
             className={`relative flex flex-col rounded-2xl border p-7 backdrop-blur-lg ${
               plan.popular
-                ? "border-amber-400/40 bg-gradient-to-b from-white/[0.12] to-white/[0.03] shadow-[0_0_40px_rgba(245,158,11,0.12)]"
+                ? "border-amber-400/40 bg-gradient-to-b from-white/[0.12] to-white/[0.03] shadow-[0_0_40px_rgba(245,158,11,0.12)] sm:scale-[1.06]"
                 : "border-white/10 bg-gradient-to-b from-white/[0.07] to-white/[0.02]"
             }`}
           >
