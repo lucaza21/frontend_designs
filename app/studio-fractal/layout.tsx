@@ -22,6 +22,7 @@ export default function StudioFractalLayout({
     <div
       className={`${almarai.className} ${instrumentSerif.variable} min-h-screen bg-black`}
     >
+      <style>{`html { scroll-behavior: smooth; }`}</style>
       {children}
     </div>
   );

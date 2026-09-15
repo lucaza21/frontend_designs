@@ -1,12 +1,20 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useScroll, useTransform, type MotionValue } from "framer-motion";
 
 const ABOUT_TEXT =
   "Over the last seven years I have worked between Berlin and Paris, collaborating with production houses that craft cinema, series and short films. Together we have created work that has earned recognition at several international festivals.";
 
 const HERO_NAV_ITEMS = ["Our story", "Collective", "Workshops", "Programs", "Inquiries"];
+
+const NAV_HREFS: Record<string, string> = {
+  "Our story": "#story",
+  Collective: "#top",
+  Workshops: "#programs",
+  Programs: "#programs",
+  Inquiries: "#inquiries",
+};
 
 type FeatureCard =
   | { kind: "video"; caption: string }
@@ -121,10 +129,44 @@ function AnimatedLetter({ char, index, total, progress }: AnimatedLetterProps) {
 export default function StudioFractalApp() {
   const aboutRef = useRef<HTMLParagraphElement>(null);
   const { scrollYProgress } = useScroll({ target: aboutRef, offset: ["start 0.8", "end 0.2"] });
+  const [showTop, setShowTop] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 600);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <>
-      <section className="h-screen p-4 md:p-6">
+      <nav className="fixed top-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-3 whitespace-nowrap rounded-full bg-black px-4 py-2 shadow-[0_4px_24px_rgba(0,0,0,0.4)] sm:gap-6 md:gap-12 md:px-8 md:py-3 lg:gap-14">
+        {HERO_NAV_ITEMS.map((item) => (
+          <a
+            key={item}
+            href={NAV_HREFS[item]}
+            className="nav-link text-[10px] sm:text-xs md:text-sm whitespace-nowrap"
+            style={{ color: "rgba(225,224,204,0.8)" }}
+          >
+            {item}
+          </a>
+        ))}
+      </nav>
+
+      <button
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Back to top"
+        className={`fixed bottom-6 right-6 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-black shadow-[0_4px_24px_rgba(0,0,0,0.4)] transition-all duration-300 hover:opacity-80 sm:bottom-8 sm:right-8 ${
+          showTop ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
+        }`}
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#DEDBC8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="m5 12 7-7 7 7" />
+          <path d="M12 19V5" />
+        </svg>
+      </button>
+
+      <section id="top" className="h-screen p-4 md:p-6">
         <div className="relative h-full w-full overflow-hidden rounded-2xl md:rounded-[2rem]">
           <video
             autoPlay
@@ -137,18 +179,6 @@ export default function StudioFractalApp() {
           />
           <div className="noise-overlay absolute inset-0 opacity-[0.7] mix-blend-overlay pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" />
-          <nav className="absolute top-0 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3 sm:gap-6 md:gap-12 lg:gap-14 rounded-b-2xl md:rounded-b-3xl bg-black px-4 py-2 md:px-8">
-            {HERO_NAV_ITEMS.map((item) => (
-              <a
-                key={item}
-                href="#"
-                className="nav-link text-[10px] sm:text-xs md:text-sm whitespace-nowrap"
-                style={{ color: "rgba(225,224,204,0.8)" }}
-              >
-                {item}
-              </a>
-            ))}
-          </nav>
           <div className="absolute bottom-0 left-0 right-0 z-10 p-4 md:p-8">
             <div className="grid grid-cols-12 gap-6 md:gap-8 items-end">
               <div className="col-span-12 md:col-span-8">
@@ -188,7 +218,7 @@ export default function StudioFractalApp() {
         </div>
       </section>
 
-      <section className="flex items-center justify-center bg-black px-4 py-20 md:py-32">
+      <section id="story" className="flex scroll-mt-28 items-center justify-center bg-black px-4 py-20 md:py-32">
         <div className="w-full max-w-6xl rounded-2xl md:rounded-[2rem] bg-[#101010] px-6 py-16 text-center md:px-16 md:py-24">
           <p className="mb-6 text-[10px] sm:text-xs text-[#DEDBC8]">Visual arts</p>
           <WordsPullUpMultiStyle
@@ -211,7 +241,7 @@ export default function StudioFractalApp() {
         </div>
       </section>
 
-      <section className="relative min-h-screen bg-black px-4 py-20 md:py-32">
+      <section id="programs" className="relative min-h-screen scroll-mt-28 bg-black px-4 py-20 md:py-32">
         <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.15]" />
         <div className="relative mx-auto max-w-7xl">
           <div className="mb-12 flex flex-col gap-1">
@@ -279,7 +309,7 @@ export default function StudioFractalApp() {
         </div>
       </section>
 
-      <footer className="border-t border-white/10 bg-black px-4 py-14 md:px-8 md:py-20">
+      <footer id="inquiries" className="scroll-mt-28 border-t border-white/10 bg-black px-4 py-14 md:px-8 md:py-20">
         <div className="mx-auto flex max-w-7xl flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div>
             <p className="text-2xl font-medium" style={{ color: "#E1E0CC" }}>
@@ -295,7 +325,7 @@ export default function StudioFractalApp() {
             {HERO_NAV_ITEMS.map((item) => (
               <a
                 key={item}
-                href="#"
+                href={NAV_HREFS[item]}
                 className="nav-link text-xs sm:text-sm"
                 style={{ color: "rgba(225,224,204,0.8)" }}
               >
