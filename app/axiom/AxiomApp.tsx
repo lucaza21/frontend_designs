@@ -389,7 +389,7 @@ export default function AxiomApp() {
       </main>
     </section>
 
-    <section className="section-pad" id="capabilities">
+    <section className="section-pad capabilities-section" id="capabilities">
       <div className="capabilities-heading anim" style={{ "--d": "0s" } as React.CSSProperties}>
         <h2>Built for how AI actually ships.</h2>
         <p>Four primitives that compose into anything you need to build.</p>
@@ -414,16 +414,18 @@ export default function AxiomApp() {
         <h2>Proof, not promises.</h2>
         <p>A few of the teams already running production workloads on Axiom.</p>
       </div>
-      <div className="case-studies-grid">
+      <div className="case-studies-list">
         {CASE_STUDIES.map((item, i) => (
           <div
-            className="case-study-card anim"
+            className="case-study-row anim"
             key={item.company}
             style={{ "--d": `${i * 0.08}s` } as React.CSSProperties}
           >
             <span className="case-study-metric">{item.metric}</span>
-            <h3>{item.company}</h3>
-            <p>{item.description}</p>
+            <div className="case-study-body">
+              <h3>{item.company}</h3>
+              <p>{item.description}</p>
+            </div>
           </div>
         ))}
       </div>
