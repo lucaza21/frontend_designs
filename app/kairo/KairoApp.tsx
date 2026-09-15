@@ -233,9 +233,23 @@ export default function KairoApp() {
       </div>
     </section>
 
-    <section className="bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
-      <div className="mx-auto max-w-5xl text-center">
-        <h2 className="text-2xl font-semibold text-white sm:text-3xl lg:text-4xl">
+    <section className="relative overflow-hidden bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(640px circle at 15% -10%, rgba(245,158,11,0.10), transparent 60%), radial-gradient(640px circle at 85% 110%, rgba(245,158,11,0.07), transparent 60%)",
+        }}
+      />
+
+      <div className="relative mx-auto max-w-5xl text-center">
+        <span
+          className="text-xs uppercase tracking-[0.25em] text-amber-400/80"
+          style={{ fontFamily: "var(--font-silkscreen)" }}
+        >
+          Workflows
+        </span>
+        <h2 className="mt-3 text-2xl font-semibold text-white sm:text-3xl lg:text-4xl">
           Automations that run themselves
         </h2>
         <p className="mx-auto mt-3 max-w-md text-sm text-white/60 sm:text-base">
@@ -243,12 +257,18 @@ export default function KairoApp() {
         </p>
       </div>
 
-      <div className="mx-auto mt-12 grid max-w-5xl gap-4 sm:grid-cols-3 sm:gap-5">
-        {WORKFLOWS.map((item) => (
+      <div className="relative mx-auto mt-12 grid max-w-5xl gap-4 sm:grid-cols-3 sm:gap-5">
+        {WORKFLOWS.map((item, i) => (
           <div
             key={item.title}
-            className="rounded-2xl bg-white/10 p-6 backdrop-blur-lg"
+            className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.08] to-white/[0.02] p-6 backdrop-blur-lg transition-all duration-300 hover:-translate-y-1 hover:border-amber-400/30 hover:from-white/[0.12]"
           >
+            <div
+              className="mb-5 flex h-9 w-9 items-center justify-center rounded-lg bg-amber-400/10 text-sm text-amber-400 transition-colors duration-300 group-hover:bg-amber-400/20"
+              style={{ fontFamily: "var(--font-silkscreen)" }}
+            >
+              {String(i + 1).padStart(2, "0")}
+            </div>
             <h3 className="text-base font-semibold text-white">
               {item.title}
             </h3>
@@ -260,25 +280,39 @@ export default function KairoApp() {
       </div>
     </section>
 
-    <section className="bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
-      <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 rounded-3xl bg-white/5 p-10 text-center sm:p-16">
-        <h2 className="text-2xl font-semibold text-white sm:text-3xl">
-          Ready to hand off the busywork?
-        </h2>
-        <p className="max-w-md text-sm text-white/60 sm:text-base">
-          Start free. Bring Kairo into the workflows that eat your week.
-        </p>
-        <a
-          href="#"
-          className="rounded-full px-6 py-3 text-sm font-medium text-white hover:opacity-90"
-          style={ctaGradient}
-        >
-          Get started
-        </a>
+    <section className="relative overflow-hidden bg-black px-5 py-20 sm:px-8 sm:py-28 lg:px-12">
+      <div className="relative mx-auto max-w-3xl">
+        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.07] to-white/[0.01] p-10 text-center sm:p-16">
+          <div className="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-amber-400/20 blur-[100px]" />
+
+          <div className="relative flex flex-col items-center gap-6">
+            <h2 className="text-2xl font-semibold text-white sm:text-3xl">
+              Ready to hand off the busywork?
+            </h2>
+            <p className="max-w-md text-sm text-white/60 sm:text-base">
+              Start free. Bring Kairo into the workflows that eat your week.
+            </p>
+            <div className="flex flex-col items-center gap-3 sm:flex-row">
+              <a
+                href="#"
+                className="rounded-full px-6 py-3 text-sm font-medium text-white shadow-[0_0_30px_rgba(245,158,11,0.18)] hover:opacity-90"
+                style={ctaGradient}
+              >
+                Get started
+              </a>
+              <a
+                href="#"
+                className="rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-white/80 transition-colors hover:border-white/30 hover:text-white"
+              >
+                See how it works
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <footer className="border-t border-white/10 bg-black px-5 py-12 sm:px-8 lg:px-12">
+    <footer className="relative border-t border-white/10 bg-black px-5 py-12 sm:px-8 lg:px-12">
       <div className="mx-auto flex max-w-5xl flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-2">
           <svg
