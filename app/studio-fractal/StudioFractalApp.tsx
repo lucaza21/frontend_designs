@@ -269,41 +269,45 @@ export default function StudioFractalApp() {
         </div>
       </section>
 
-      <section id="collective" className="relative scroll-mt-28 bg-black px-4 py-20 md:py-32">
+      <section id="collective" className="relative scroll-mt-28 bg-[#14100c] px-4 py-20 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <p className="mb-4 text-[10px] sm:text-xs text-[#DEDBC8]">The collective</p>
-          <WordsPullUpMultiStyle
-            className="max-w-3xl text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal"
-            style={{ color: "#E1E0CC" }}
-            segments={[
-              { text: "A network built on trust,", className: "font-normal" },
-              { text: "not headcount.", className: "font-instrument-serif" },
-            ]}
-          />
-          <p className="mt-6 max-w-xl text-xs sm:text-sm md:text-base text-gray-400">
-            Every member joins by invitation from someone already inside. No
-            agency roster, no bench — just people whose work we&apos;d put our
-            own name on.
-          </p>
+          <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-16">
+            <div>
+              <p className="mb-4 text-[10px] sm:text-xs text-[#DEDBC8]">The collective</p>
+              <WordsPullUpMultiStyle
+                className="max-w-md text-2xl sm:text-3xl md:text-4xl font-normal"
+                style={{ color: "#E1E0CC" }}
+                segments={[
+                  { text: "A network built on trust,", className: "font-normal" },
+                  { text: "not headcount.", className: "font-instrument-serif" },
+                ]}
+              />
+              <p className="mt-6 max-w-md text-xs sm:text-sm md:text-base text-gray-400">
+                Every member joins by invitation from someone already inside.
+                No agency roster, no bench — just people whose work we&apos;d
+                put our own name on.
+              </p>
+            </div>
 
-          <div className="mt-16 grid grid-cols-2 gap-8 border-t border-white/10 pt-10 md:grid-cols-4">
-            {COLLECTIVE_STATS.map((stat) => (
-              <div key={stat.label}>
-                <p
-                  className="font-instrument-serif text-4xl sm:text-5xl md:text-6xl"
-                  style={{ color: "#E1E0CC" }}
-                >
-                  {stat.value}
-                </p>
-                <p className="mt-2 text-xs sm:text-sm text-gray-500">{stat.label}</p>
-              </div>
-            ))}
+            <div className="grid grid-cols-2 gap-x-8 gap-y-10 border-t border-white/10 pt-10 md:border-l md:border-t-0 md:pl-16 md:pt-0">
+              {COLLECTIVE_STATS.map((stat) => (
+                <div key={stat.label}>
+                  <p
+                    className="font-instrument-serif text-4xl sm:text-5xl"
+                    style={{ color: "#E1E0CC" }}
+                  >
+                    {stat.value}
+                  </p>
+                  <p className="mt-2 text-xs sm:text-sm text-gray-500">{stat.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       <section id="workshops" className="relative scroll-mt-28 bg-black px-4 py-20 md:py-32">
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-5xl">
           <p className="mb-4 text-[10px] sm:text-xs text-[#DEDBC8]">Workshops</p>
           <WordsPullUpMultiStyle
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal"
@@ -311,25 +315,32 @@ export default function StudioFractalApp() {
             segments={[{ text: "Learn how the collective actually works.", className: "" }]}
           />
 
-          <div className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-3">
-            {WORKSHOPS.map((workshop) => (
+          <div className="mt-16 flex flex-col divide-y divide-white/10 border-t border-white/10">
+            {WORKSHOPS.map((workshop, i) => (
               <div
                 key={workshop.title}
-                className="flex flex-col rounded-2xl bg-[#212121] p-6 md:p-8"
+                className="flex flex-col gap-3 py-8 md:flex-row md:items-center md:gap-10 md:py-10"
               >
-                <p className="text-xs text-gray-500">{workshop.format}</p>
-                <h3
-                  className="mt-3 text-lg font-medium md:text-xl"
-                  style={{ color: "#E1E0CC" }}
+                <span
+                  className="font-instrument-serif text-3xl text-gray-600 md:w-14 md:shrink-0"
                 >
-                  {workshop.title}
-                </h3>
-                <p className="mt-3 text-xs sm:text-sm text-gray-400">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="md:w-64 md:shrink-0">
+                  <h3
+                    className="text-lg font-medium md:text-xl"
+                    style={{ color: "#E1E0CC" }}
+                  >
+                    {workshop.title}
+                  </h3>
+                  <p className="mt-1 text-xs text-gray-500">{workshop.format}</p>
+                </div>
+                <p className="text-xs text-gray-400 sm:text-sm md:flex-1">
                   {workshop.description}
                 </p>
                 <a
                   href="#inquiries"
-                  className="mt-auto inline-flex w-fit items-center gap-2 pt-8 text-sm text-[#DEDBC8]"
+                  className="inline-flex w-fit shrink-0 items-center gap-2 text-sm text-[#DEDBC8] md:ml-auto"
                 >
                   Reserve a seat
                   <svg className="h-4 w-4 -rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
