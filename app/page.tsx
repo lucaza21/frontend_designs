@@ -34,6 +34,30 @@ const projects: Project[] = [
     accent: "from-emerald-700/20 to-emerald-900/20",
     image: "/home-cards/peacock-header.png",
   },
+  {
+    href: "/studio-fractal",
+    title: "Studio Fractal",
+    description:
+      "A cinematic creative-studio hero: character-by-character scroll reveal, word-by-word pull-up headlines, and film-grain noise overlays over a full-bleed video backdrop.",
+    accent: "from-amber-700/20 to-neutral-900/20",
+    image: "/home-cards/studio-fractal-header.png",
+  },
+  {
+    href: "/axiom",
+    title: "Axiom",
+    description:
+      "A single-viewport AI-platform hero: glass nav pill, count-up stat footer driven by IntersectionObserver, and a retro monospace display headline over a looping video backdrop.",
+    accent: "from-slate-500/20 to-neutral-900/20",
+    image: "/home-cards/axiom-header.png",
+  },
+  {
+    href: "/kairo",
+    title: "Kairo",
+    description:
+      "A dark AI-ops hero built entirely from glassmorphism: a blurred nav pill, two frosted stat/testimonial cards, and a slide-in glass drawer for mobile.",
+    accent: "from-neutral-500/20 to-neutral-900/20",
+    image: "/home-cards/kairo-header.png",
+  },
 ];
 
 export default function Home() {
