@@ -4,6 +4,31 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const NAV_LINKS = ["Home", "Product", "Case Studies", "Contact"];
 
+const NAV_HREFS: Record<string, string> = {
+  Home: "#top",
+  Product: "#capabilities",
+  "Case Studies": "#case-studies",
+  Contact: "#contact",
+};
+
+const CASE_STUDIES = [
+  {
+    metric: "-42%",
+    company: "Fenwick Labs",
+    description: "in infra cost after moving batch inference onto Axiom's elastic scale.",
+  },
+  {
+    metric: "3.5x",
+    company: "Northbeam",
+    description: "faster iteration once reasoning chains became swappable mid-flight.",
+  },
+  {
+    metric: "0",
+    company: "Verge Systems",
+    description: "production incidents across 14 months running agentic workflows.",
+  },
+];
+
 const STATS = [
   { glyph: "<", target: 120, suffix: "ms", decimals: 0, label: "Inference Time" },
   { glyph: "%", target: 99.99, suffix: "%", decimals: 2, label: "Platform Uptime" },
@@ -44,8 +69,16 @@ function formatValue(value: number, decimals: number, suffix: string) {
 
 export default function AxiomApp() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showTop, setShowTop] = useState(false);
   const statsRef = useRef<HTMLDivElement | null>(null);
   const valueRefs = useRef<Array<HTMLSpanElement | null>>([]);
+
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 600);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const closeMenu = useCallback(() => {
     setMenuOpen(false);
@@ -170,7 +203,115 @@ export default function AxiomApp() {
 
   return (
     <>
-    <section className="hero-viewport">
+    <header className="site-header">
+      <div className="header-inner">
+        <a className="logo-btn" href="#top" aria-label="Axiom home">
+          <svg
+            className="logo-mark"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            aria-hidden="true"
+          >
+            <path d="M12 3.5 20.5 12 12 20.5 3.5 12Z" />
+            <path d="M7.5 12h9" />
+          </svg>
+        </a>
+        <nav className="nav-pill" aria-label="Primary">
+          {NAV_LINKS.map((link, index) => (
+            <a
+              key={link}
+              className={index === 0 ? "nav-link is-active" : "nav-link"}
+              href={NAV_HREFS[link]}
+            >
+              {link}
+            </a>
+          ))}
+        </nav>
+        <a className="signin-pill" href="#">
+          Sign In
+        </a>
+      </div>
+
+      <div className="mobile-bar">
+        <a className="logo-btn" href="#top" aria-label="Axiom home">
+          <svg
+            className="logo-mark"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            aria-hidden="true"
+          >
+            <path d="M12 3.5 20.5 12 12 20.5 3.5 12Z" />
+            <path d="M7.5 12h9" />
+          </svg>
+        </a>
+        <button
+          type="button"
+          className={menuOpen ? "burger is-open" : "burger"}
+          aria-label="Menu"
+          aria-expanded={menuOpen}
+          aria-controls="axiom-mobile-menu"
+          onClick={() => setMenuOpen((v) => !v)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+      </div>
+    </header>
+
+    {menuOpen && (
+      <>
+        <div
+          className="menu-overlay"
+          onClick={closeMenu}
+          aria-hidden="true"
+        />
+        <div
+          className="menu-sheet"
+          id="axiom-mobile-menu"
+          role="dialog"
+          aria-modal="true"
+        >
+          {NAV_LINKS.map((link, index) => (
+            <a
+              key={link}
+              className="sheet-link"
+              href={NAV_HREFS[link]}
+              onClick={closeMenu}
+              style={{ animationDelay: `${(index + 1) * 60}ms` }}
+            >
+              {link}
+            </a>
+          ))}
+          <a
+            className="sheet-signin"
+            href="#"
+            onClick={closeMenu}
+            style={{ animationDelay: `${(NAV_LINKS.length + 1) * 60}ms` }}
+          >
+            Sign In
+          </a>
+        </div>
+      </>
+    )}
+
+    <button
+      type="button"
+      className={showTop ? "back-to-top" : "back-to-top is-hidden"}
+      aria-label="Back to top"
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="m5 12 7-7 7 7" />
+        <path d="M12 19V5" />
+      </svg>
+    </button>
+
+    <section id="top" className="hero-viewport">
       <div className="bg-fallback" aria-hidden="true" />
 
       <video
@@ -185,102 +326,6 @@ export default function AxiomApp() {
       </video>
 
       <div className="hero-scrim" aria-hidden="true" />
-
-      <header className="site-header">
-        <div className="header-inner">
-          <a className="logo-btn" href="#" aria-label="Axiom home">
-            <svg
-              className="logo-mark"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              aria-hidden="true"
-            >
-              <path d="M12 3.5 20.5 12 12 20.5 3.5 12Z" />
-              <path d="M7.5 12h9" />
-            </svg>
-          </a>
-          <nav className="nav-pill" aria-label="Primary">
-            {NAV_LINKS.map((link, index) => (
-              <a
-                key={link}
-                className={index === 0 ? "nav-link is-active" : "nav-link"}
-                href="#"
-              >
-                {link}
-              </a>
-            ))}
-          </nav>
-          <a className="signin-pill" href="#">
-            Sign In
-          </a>
-        </div>
-
-        <div className="mobile-bar">
-          <a className="logo-btn" href="#" aria-label="Axiom home">
-            <svg
-              className="logo-mark"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              aria-hidden="true"
-            >
-              <path d="M12 3.5 20.5 12 12 20.5 3.5 12Z" />
-              <path d="M7.5 12h9" />
-            </svg>
-          </a>
-          <button
-            type="button"
-            className={menuOpen ? "burger is-open" : "burger"}
-            aria-label="Menu"
-            aria-expanded={menuOpen}
-            aria-controls="axiom-mobile-menu"
-            onClick={() => setMenuOpen((v) => !v)}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
-        </div>
-      </header>
-
-      {menuOpen && (
-        <>
-          <div
-            className="menu-overlay"
-            onClick={closeMenu}
-            aria-hidden="true"
-          />
-          <div
-            className="menu-sheet"
-            id="axiom-mobile-menu"
-            role="dialog"
-            aria-modal="true"
-          >
-            {NAV_LINKS.map((link, index) => (
-              <a
-                key={link}
-                className="sheet-link"
-                href="#"
-                onClick={closeMenu}
-                style={{ animationDelay: `${(index + 1) * 60}ms` }}
-              >
-                {link}
-              </a>
-            ))}
-            <a
-              className="sheet-signin"
-              href="#"
-              onClick={closeMenu}
-              style={{ animationDelay: `${(NAV_LINKS.length + 1) * 60}ms` }}
-            >
-              Sign In
-            </a>
-          </div>
-        </>
-      )}
 
       <main className="hero">
         <div className="trust">
@@ -364,12 +409,35 @@ export default function AxiomApp() {
       </div>
     </section>
 
-    <section className="section-pad" id="cta-band">
+    <section className="section-pad" id="case-studies">
+      <div className="capabilities-heading anim" style={{ "--d": "0s" } as React.CSSProperties}>
+        <h2>Proof, not promises.</h2>
+        <p>A few of the teams already running production workloads on Axiom.</p>
+      </div>
+      <div className="case-studies-grid">
+        {CASE_STUDIES.map((item, i) => (
+          <div
+            className="case-study-card anim"
+            key={item.company}
+            style={{ "--d": `${i * 0.08}s` } as React.CSSProperties}
+          >
+            <span className="case-study-metric">{item.metric}</span>
+            <h3>{item.company}</h3>
+            <p>{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section className="section-pad" id="contact">
       <div className="cta-band anim" style={{ "--d": "0s" } as React.CSSProperties}>
         <h2>Ready to build with Axiom?</h2>
         <p>Start free. Scale when you&apos;re ready.</p>
         <a className="cta" href="#">
           Get Started
+        </a>
+        <a className="contact-email" href="mailto:hello@axiom.dev">
+          hello@axiom.dev
         </a>
       </div>
     </section>
@@ -393,7 +461,7 @@ export default function AxiomApp() {
           axiom
         </div>
         <div className="footer-links">
-          <a href="#">Product</a>
+          <a href="#capabilities">Product</a>
           <a href="#">Docs</a>
           <a href="#">Status</a>
         </div>

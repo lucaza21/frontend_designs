@@ -19,6 +19,7 @@ export default function AxiomLayout({
 }) {
   return (
     <div className={`${inter.className} ${spaceMono.variable} axiom-root`}>
+      <style>{`html { scroll-behavior: smooth; }`}</style>
       {children}
     </div>
   );
